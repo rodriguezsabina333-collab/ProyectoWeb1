@@ -1,10 +1,8 @@
 <?php
-
 $host = "localhost";
-$usuario = "root";   // cambia por tu usuario
-$clave = "";         // cambia por tu contraseña
-$bd = "mi_base";     // cambia por tu base de datos
-
+$usuario = "root";       // Usuario por defecto en XAMPP
+$clave = "";              // Contraseña por defecto en XAMPP
+$bd = "mi_base";          // Asegúrate que este nombre coincida con tu base de datos
 
 $conexion = new mysqli($host, $usuario, $clave, $bd);
 
@@ -12,21 +10,24 @@ if ($conexion->connect_error) {
     die("Error de conexión: " . $conexion->connect_error);
 }
 
-$nombre = $_POST['Nombre'];
-$apellido = $_POST['Apellido'];
-$contrasena = $_POST['Contrasena'];
-$correo = $_POST['Correo'];
-$telefono = $_POST['Telefono'];
-$fecha_nacimiento = $_POST['Fechadenacimiento'];
+// Recibir datos del formulario
+$username = $_POST['username'];
+$contra = $_POST['contra'];
+$tipo_user = $_POST['tipo_user'];
+$correo = $_POST['correo'];
+$nombre = $_POST['nombre'];
+$apellido = $_POST['apellido'];
+$telefono = $_POST['telefono'];
+$fechadenacimiento = $_POST['fechadenacimiento'];
 
+// Encriptar la contraseña
+$contra_hash = password_hash($contra, PASSWORD_DEFAULT);
 
-$contrasena_hash = password_hash($contrasena, PASSWORD_DEFAULT);
+// Preparar la consulta
+$stmt = $conexion->prepare("INSERT INTO usuarios (username, contra, tipo_user, correo, nombre, apellido, telefono, fechadenacimiento) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+$stmt->bind_param("ssssssss", $username, $contra_hash, $tipo_user, $correo, $nombre, $apellido, $telefono, $fechadenacimiento);
 
-
-$stmt = $conexion->prepare("INSERT INTO usuarios (nombre, apellido, contrasena, correo, telefono, fecha_nacimiento) VALUES (?, ?, ?, ?, ?, ?)");
-$stmt->bind_param("ssssss", $nombre, $apellido, $contrasena_hash, $correo, $telefono, $fecha_nacimiento);
-
-
+// Ejecutar y verificar
 if ($stmt->execute()) {
     echo "<script>alert('Usuario registrado correctamente'); window.location.href='registro.php';</script>";
 } else {
@@ -35,4 +36,4 @@ if ($stmt->execute()) {
 
 $stmt->close();
 $conexion->close();
-?> 
+?>
