@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// Mantener funcionalidad para agregar tareas (aunque no se muestren)
 if (!isset($_SESSION['tareas'])) {
     $_SESSION['tareas'] = [];
 }
@@ -71,9 +70,8 @@ if (isset($_POST['accion']) && $_POST['accion'] === 'crear') {
 </head>
 <body>
 
-<h1>📋 Gestión de Tareas</h1>
+<h1> Gestión de Tareas</h1>
 
-<!-- Formulario para agregar tarea -->
 <form method="POST">
     <input type="hidden" name="accion" value="crear">
     <label>Curso:</label>
@@ -85,7 +83,6 @@ if (isset($_POST['accion']) && $_POST['accion'] === 'crear') {
     <button type="submit">Agregar</button>
 </form>
 
-<!-- Botón Volver -->
 <div class="volver-container">
     <a href="../../index.php" class="volver-btn">⬅ Volver</a>
 </div>

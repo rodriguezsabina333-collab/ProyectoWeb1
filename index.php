@@ -15,8 +15,13 @@ include(__DIR__ . '/admin/includes/header.php');
         <div class="col-md-7 text-center text-md-start px-5">
             <h1 class="display-3 fw-bold">BIENVENIDOS</h1>
             <h4 class="fw-light">FACULTAD DE INGENIERÍA</h4>
+<<<<<<< HEAD
             <p class="mt-4">Plataforma <strong>Homework UVG</strong> para apoyar tu aprendizaje.</p>
             <a href="login.php" class="btn btn-light btn-lg mt-3 text-success fw-bold shadow-sm">Ingresar</a>
+=======
+            <p class="mt-4">Plataforma Homework UVG para apoyar tu aprendizaje.</p>
+            <a href="dashboard.php" class="btn btn-light btn-lg mt-3">Ingresar</a>
+>>>>>>> ecb720471bd41307e91d8369c240d7ebfaf1ef64
         </div>
 
         <!-- Imagen de estudiantes -->
