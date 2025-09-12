@@ -2,8 +2,8 @@
 
 $host = "localhost";
 $usuario = "root";   // cambia por tu usuario
-$clave = "";         // cambia por tu contraseña
-$bd = "mi_base";     // cambia por tu base de datos
+$clave = "admin";         // cambia por tu contraseña
+$bd = "pruebas_web";     // cambia por tu base de datos
 
 
 $conexion = new mysqli($host, $usuario, $clave, $bd);
