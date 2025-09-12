@@ -1,58 +1,44 @@
 <?php
-// Conexión a la base de datos
-$conexion = new mysqli("localhost", "root", "", "pruebas_web");
+include('../includes/header.php'); 
 
-if ($conexion->connect_error) {
-    die("Conexión fallida: " . $conexion->connect_error);
-}
+include_once(__DIR__ . "/../config/conexion.php");
 
-// Si se envía un evento por POST (desde JavaScript)
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $data = json_decode(file_get_contents("php://input"), true);
+$estado = $_GET['estado'] ?? '';
+$prioridad = $_GET['prioridad'] ?? '';
+$etiqueta = $_GET['etiqueta'] ?? '';
 
-    if (!empty($data['title']) && !empty($data['start']) && !empty($data['end']) && !empty($data['color'])) {
-        $stmt = $conexion->prepare("INSERT INTO events (title, start, end, color) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssss", $data['title'], $data['start'], $data['end'], $data['color']);
-        $success = $stmt->execute();
-        $stmt->close();
 
-        echo json_encode(["success" => $success]);
-        exit;
-    } else {
-        echo json_encode(["success" => false, "error" => "Datos incompletos"]);
-        exit;
-    }
-}
+$sql = "SELECT * FROM recordatorios WHERE 1";
+if ($estado) $sql .= " AND estado = '$estado'";
+if ($prioridad) $sql .= " AND prioridad = '$prioridad'";
+if ($etiqueta) $sql .= " AND etiqueta LIKE '%$etiqueta%'";
+$sql .= " ORDER BY fecha ASC";
 
-// Si se quiere obtener los eventos
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $result = $conexion->query("SELECT id, title, start, end, color FROM events");
-    $eventos = [];
-
+$result = $conn->query($sql);
+$eventos = [];
+if ($result && $result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $eventos[] = $row;
+        $eventos[] = [
+            'title' => $row['titulo'],
+            'start' => $row['fecha'],
+            'description' => $row['descripcion'],
+            'color' => ($row['estado'] === 'completada') ? '#28a745' : '#dc3545'
+        ];
     }
-
-    header('Content-Type: application/json');
-    echo json_encode($eventos);
-    exit;
 }
 ?>
-<!-- A partir de aquí comienza el HTML -->
+
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <title>Recordatorios</title>
-    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css' rel='stylesheet' />
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.js'></script>
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/locales-all.min.js'></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-
+    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales-all.min.js'></script>
+    <style> 
         #calendar {
             max-width: 900px;
             margin: 40px auto;
@@ -62,56 +48,60 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 <body>
 
-    <h1 style="text-align: center;">📅 Mis Recordatorios</h1>
-    <div id='calendar'></div>
+    <div class="container mt-4">
+        <h2 class="mb-3 text-center">Recordatorios con Filtros</h2>
+
+        <!-- Filtros -->
+        <form method="GET" class="row mb-4">
+            <div class="col-md-3">
+                <select name="estado" class="form-control">
+                    <option value="">Estado</option>
+                    <option value="pendiente" <?= $estado == 'pendiente' ? 'selected' : '' ?>>Pendiente</option>
+                    <option value="completada" <?= $estado == 'completada' ? 'selected' : '' ?>>Completada</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select name="prioridad" class="form-control">
+                    <option value="">Prioridad</option>
+                    <option value="alta" <?= $prioridad == 'alta' ? 'selected' : '' ?>>Alta</option>
+                    <option value="media" <?= $prioridad == 'media' ? 'selected' : '' ?>>Media</option>
+                    <option value="baja" <?= $prioridad == 'baja' ? 'selected' : '' ?>>Baja</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <input type="text" name="etiqueta" class="form-control" placeholder="Etiqueta..." value="<?= htmlspecialchars($etiqueta) ?>">
+            </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+            </div>
+        </form>
+
+        <!-- Calendario -->
+        <div id="calendar"></div>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('calendar');
-
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                locale: 'es',
+            var calendar = new FullCalendar.Calendar(document.getElementById('calendar'), {
                 initialView: 'dayGridMonth',
-                selectable: true,
-                editable: false,
-                events: 'recordatorios.php', // El mismo archivo PHP devuelve los eventos
-
-                dateClick: function(info) {
-                    let title = prompt('Título del evento:');
-                    if (title) {
-                        let color = prompt('Color en formato HEX (ej: #3788d8):', '#3788d8');
-                        let start = info.dateStr + ' 00:00:00';
-                        let end = info.dateStr + ' 23:59:59';
-
-                        fetch('recordatorios.php', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify({
-                                    title,
-                                    start,
-                                    end,
-                                    color
-                                })
-                            })
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.success) {
-                                    alert('Evento guardado correctamente.');
-                                    calendar.refetchEvents();
-                                } else {
-                                    alert('Error al guardar: ' + (data.error || 'Desconocido'));
-                                }
-                            });
-                    }
+                locale: 'es',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,listWeek'
+                },
+                events: <?= json_encode($eventos) ?>,
+                eventClick: function(info) {
+                    alert( + info.event.title  + (info.event.extendedProps.description || "Sin descripción"));
                 }
             });
-
             calendar.render();
         });
     </script>
 
+    <?php
+    include('../includes/footer.php'); 
+    ?>
 </body>
 
 </html>
