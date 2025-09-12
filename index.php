@@ -25,15 +25,15 @@ include(__DIR__ . '/admin/includes/header.php');
 <div class="container my-5">
     <div class="row text-center">
         <div class="col-md-4">
-            <h3>📘 Cursos</h3>
+            <h3> Cursos</h3>
             <p>Accede a material, guías y tareas de tus cursos.</p>
         </div>
         <div class="col-md-4">
-            <h3>📝 Tareas</h3>
+            <h3>Tareas</h3>
             <p>Organiza y gestiona tus tareas de forma más sencilla.</p>
         </div>
         <div class="col-md-4">
-            <h3>📊 Recursos</h3>
+            <h3>Recursos</h3>
             <p>Encuentra herramientas y recursos para tus estudios.</p>
         </div>
     </div>
