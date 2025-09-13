@@ -1,5 +1,4 @@
-<?php
-// Incluye el header desde admin/includes
+<?php 
 include(__DIR__ . '/admin/includes/header.php');
 ?>
 
@@ -14,7 +13,7 @@ include(__DIR__ . '/admin/includes/header.php');
         </div>
 
         <div class="col-md-5 text-center">
-            <img src="assets/images/estudiantes.png" alt="Estudiantes UVG" class="img-fluid rounded-3 shadow">
+            <img src="assets/img/logoU.png" alt="Estudiantes UVG" class="img-fluid rounded-3 shadow">
         </div>
     </div>
 </div>

@@ -1,46 +1,109 @@
 <?php
-$host = "localhost";
-<<<<<<< HEAD
-$usuario = "root";       // Usuario por defecto en XAMPP
-$clave = "";              // Contraseña por defecto en XAMPP
-$bd = "mi_base";          // Asegúrate que este nombre coincida con tu base de datos
-=======
-$usuario = "root";   // cambia por tu usuario
-$clave = "admin";         // cambia por tu contraseña
-$bd = "pruebas_web";     // cambia por tu base de datos
+include_once(__DIR__ . '/../config/conexion.php');
 
->>>>>>> ecb720471bd41307e91d8369c240d7ebfaf1ef64
+$mensaje = "";
 
-$conexion = new mysqli($host, $usuario, $clave, $bd);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-if ($conexion->connect_error) {
-    die("Error de conexión: " . $conexion->connect_error);
+    $username = $_POST['username'] ?? '';
+    $contra = $_POST['contra'] ?? '';
+    $correo = $_POST['correo'] ?? '';
+    $nombre = $_POST['nombre'] ?? '';
+    $apellido = $_POST['apellido'] ?? '';
+    $telefono = $_POST['telefono'] ?? '';
+    $fechadenacimiento = $_POST['fechadenacimiento'] ?? null;
+
+    if (!empty($username) && !empty($contra)) {
+        $contra_hash = password_hash($contra, PASSWORD_DEFAULT);
+
+        $query = "INSERT INTO usuario (username, contra, correo, nombre, apellido, telefono, fechadenacimiento) 
+                  VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($query);
+
+        if ($stmt === false) {
+            $mensaje = "Error en la consulta SQL: " . $conn->error;
+        } else {
+            $stmt->bind_param("sssssss", $username, $contra_hash, $correo, $nombre, $apellido, $telefono, $fechadenacimiento);
+
+            if ($stmt->execute()) {
+
+                header('Location: ' . URL_BASE . '/ProjectNEW1/index.php');
+                exit;
+            } else {
+                $mensaje = "Error al registrar: " . $stmt->error;
+            }
+
+            $stmt->close();
+        }
+    } else {
+        $mensaje = "Usuario y contraseña son obligatorios";
+    }
 }
-
-// Recibir datos del formulario
-$username = $_POST['username'];
-$contra = $_POST['contra'];
-$tipo_user = $_POST['tipo_user'];
-$correo = $_POST['correo'];
-$nombre = $_POST['nombre'];
-$apellido = $_POST['apellido'];
-$telefono = $_POST['telefono'];
-$fechadenacimiento = $_POST['fechadenacimiento'];
-
-// Encriptar la contraseña
-$contra_hash = password_hash($contra, PASSWORD_DEFAULT);
-
-// Preparar la consulta
-$stmt = $conexion->prepare("INSERT INTO usuarios (username, contra, tipo_user, correo, nombre, apellido, telefono, fechadenacimiento) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-$stmt->bind_param("ssssssss", $username, $contra_hash, $tipo_user, $correo, $nombre, $apellido, $telefono, $fechadenacimiento);
-
-// Ejecutar y verificar
-if ($stmt->execute()) {
-    echo "<script>alert('Usuario registrado correctamente'); window.location.href='registro.php';</script>";
-} else {
-    echo "Error: " . $stmt->error;
-}
-
-$stmt->close();
-$conexion->close();
 ?>
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Homework UVG - Registro</title>
+    <link rel="stylesheet" href="../../assets/css/StyleR.css">
+</head>
+
+<body>
+    <div class="logo-text">Homework UVG</div>
+
+    <div class="container">
+        <div class="header-section">
+
+            <div class="sub-text">Crea una cuenta<br>Es rápido y fácil.</div>
+        </div>
+
+        <div class="card-body">
+            <?php if ($mensaje) { ?>
+                <div class="alert alert-warning"><?php echo $mensaje; ?></div>
+            <?php } ?>
+
+            <form method="POST">
+                <div class="form-group">
+                    <label>Usuario</label>
+                    <input type="text" name="username" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input type="password" name="contra" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Correo</label>
+                    <input type="email" name="correo" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" name="nombre" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Apellido</label>
+                    <input type="text" name="apellido" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Teléfono</label>
+                    <input type="text" name="telefono" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Fecha de nacimiento</label>
+                    <input type="date" name="fechaNacimiento" class="form-control">
+                </div>
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="submit" class="btn btn-success btn-block">Registrarse</button>
+                    <a href="inicioSesion.php" class="login-link">¿Ya tienes una cuenta?</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+</body>
+
+</html>
