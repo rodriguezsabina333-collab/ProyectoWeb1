@@ -1,0 +1,17 @@
+.fc-event {
+    background-color: #76b376 !important;  
+    border: none !important;
+    color: white !important;
+    font-weight: bold;
+    font-size: 13px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+
+.fc .fc-event {
+    background-color: #76b376 !important;
+    border-color: #76b376 !important;
+    color: white !important;
+}

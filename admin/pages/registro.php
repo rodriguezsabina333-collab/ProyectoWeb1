@@ -6,7 +6,7 @@ $mensaje = "";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $username = $_POST['username'] ?? '';
-    $contra = $_POST['contra'] ?? '';
+    $contra = $_POST['contra'] ?? ''; 
     $correo = $_POST['correo'] ?? '';
     $nombre = $_POST['nombre'] ?? '';
     $apellido = $_POST['apellido'] ?? '';
@@ -14,8 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fechadenacimiento = $_POST['fechadenacimiento'] ?? null;
 
     if (!empty($username) && !empty($contra)) {
-        $contra_hash = password_hash($contra, PASSWORD_DEFAULT);
-
+      
         $query = "INSERT INTO usuario (username, contra, correo, nombre, apellido, telefono, fechadenacimiento) 
                   VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($query);
@@ -23,11 +22,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($stmt === false) {
             $mensaje = "Error en la consulta SQL: " . $conn->error;
         } else {
-            $stmt->bind_param("sssssss", $username, $contra_hash, $correo, $nombre, $apellido, $telefono, $fechadenacimiento);
+            $stmt->bind_param("sssssss", $username, $contra, $correo, $nombre, $apellido, $telefono, $fechadenacimiento);
 
             if ($stmt->execute()) {
+                session_start();
+                $_SESSION['usuario'] = "ok";
+                $_SESSION['nombreUsuario'] = $username;
 
-                header('Location: ' . URL_BASE . '/ProjectNEW1/index.php');
+                header("Location: /PROYECTOWEB1/index.php?registro=ok");
                 exit;
             } else {
                 $mensaje = "Error al registrar: " . $stmt->error;
@@ -40,6 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">

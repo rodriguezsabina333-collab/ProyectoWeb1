@@ -3,31 +3,37 @@ if (!defined('NOMBRE_SITIO')) {
     include_once(__DIR__ . '/../config/conexion.php');
 }
 
-session_start();
-if(!isset($_SESSION['usuario'])){
-    header("Location: ". URL_BASE . "admin/pages/inicioSesion.php"); 
-}else{
-    if($_SESSION['usuario'] == "ok"){
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+
+if (!isset($_SESSION['usuario'])) {
+    header("Location: " . URL_BASE . "admin/pages/inicioSesion.php");
+    exit;
+} else {
+    if ($_SESSION['usuario'] === "ok") {
         $nombreUsuario = $_SESSION["nombreUsuario"];
     }
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ProyectoWeb1</title>
     <link rel="stylesheet" href="<?php echo URL_BASE ?>/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <ul class="nav navbar-nav">
-        
-            </li>
+
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo URL_BASE ?>admin/pages/dashboard.php">Mis Tareas</a>
             </li>
@@ -49,7 +55,15 @@ if(!isset($_SESSION['usuario'])){
             <li class="nav-item">
                 <a class="nav-link text-danger" href="<?php echo URL_BASE ?>admin/pages/cerrar.php">Cerrar Sesión</a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo URL_BASE ?>index.php">
+                    <i class="bi bi-house-door-fill"></i> Inicio
+                </a>
+            </li>
         </ul>
+        
+        
     </nav>
     <br>
     <div>

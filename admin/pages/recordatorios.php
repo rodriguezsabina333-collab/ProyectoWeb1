@@ -34,7 +34,7 @@ if ($result && $result->num_rows > 0) {
 <head>
     <meta charset="UTF-8">
     <title>Recordatorios</title>
-    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assets/css/StyleRec.css">
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css' rel='stylesheet' />
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales-all.min.js'></script>
@@ -46,12 +46,13 @@ if ($result && $result->num_rows > 0) {
     </style>
 </head>
 
+
 <body>
 
     <div class="container mt-4">
         <h2 class="mb-3 text-center">Recordatorios con Filtros</h2>
 
-        <!-- Filtros -->
+        
         <form method="GET" class="row mb-4">
             <div class="col-md-3">
                 <select name="estado" class="form-control">
@@ -76,7 +77,7 @@ if ($result && $result->num_rows > 0) {
             </div>
         </form>
 
-        <!-- Calendario -->
+        
         <div id="calendar"></div>
     </div>
 
