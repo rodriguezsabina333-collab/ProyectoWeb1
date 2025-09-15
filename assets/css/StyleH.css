@@ -1,0 +1,121 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.layout-top {
+    padding-top: 70px;
+}
+
+.sidebar {
+    width: 150px;
+    background-color: #1a1a1a;
+    color: white;
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+}
+
+.navbar-top {
+    width: 100%;
+    height: 70px;
+    background-color: #1a1a1a;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.navbar-top .logo {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.navbar-top .nav-links {
+    display: flex;
+    gap: 15px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-top .nav-links li {
+    margin: 0;
+}
+
+.navbar-top .nav-links a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.navbar-top .nav-links a:hover {
+    background-color: #333;
+}
+
+.sidebar .logo {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.sidebar .nav-links {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.sidebar .nav-links li {
+    margin-bottom: 10px;
+}
+
+.sidebar .nav-links a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    display: block;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.sidebar .nav-links a:hover {
+    background-color: #333;
+}
+
+.sidebar .nav-links a.cerrar {
+    color: #ff4d4d;
+}
+
+.main-content {
+    padding: 20px;
+    width: 100%;
+}
+
+.layout .main-content {
+    margin-left: 170px;
+}
+
+.layout-top .main-content {
+    margin-left: 0;
+}

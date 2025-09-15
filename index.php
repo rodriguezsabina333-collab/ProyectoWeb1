@@ -4,7 +4,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 include(__DIR__ . '/admin/includes/header.php');
-$extra_css = '<link rel="stylesheet" href="/ProyectoWeb1/assets/css/StyleI.css">';
+$extra_css = '<link rel="stylesheet" href="/ProyectoWeb1/assets/css/StyleIn.css">';
 
 
 if (isset($_GET['registro']) && $_GET['registro'] === 'ok') {
