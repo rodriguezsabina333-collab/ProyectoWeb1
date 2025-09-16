@@ -7,11 +7,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion']) && $_POST['
     $titulo = $_POST['titulo'];
     $fecha = $_POST['fecha'];
     $descripcion = $_POST['descripcion'];
+    $estatus = $_POST['estatus']; 
+    $prioridad = $_POST['prioridad']; 
+    $etiquetas = $_POST['etiquetas']; 
 
-    $stmt = $pdo->prepare("INSERT INTO tareas (curso, titulo, fecha, descripcion) VALUES (?, ?, ?, ?)");
-    $stmt->execute([$curso, $titulo, $fecha, $descripcion]);
+   
+    $stmt = $pdo->prepare("INSERT INTO reentrenodatos (título, descripción, fecha, estatus, prioridad, etiquetas) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->execute([$titulo, $descripcion, $fecha, $estatus, $prioridad, $etiquetas]);
 
-    header("Location: misTareas.php");
+    header('Location:  '. URL_BASE . '/../pages/nuevaTarea.php'); 
     exit;
 }
 ?>
@@ -19,38 +23,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion']) && $_POST['
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Gestión de Tareas</title>
-<link rel="stylesheet" href="/assets/css/StyleDB.css">
+    <meta charset="UTF-8">
+    <title>Gestión de Tareas</title>
+    <link rel="stylesheet" href="../../assets/css/StylenueT.css">
 </head>
 <body>
 
 <h1>Gestión de Tareas</h1>
 
 <form method="POST">
-    <input type="hidden" name="accion" value="crear">
+    <input type="hidden" name="accion" value="crear"> 
+    
     <label>Curso:</label>
-    <input type="text" name="curso" required>
+    <input type="text" name="curso" required>  
+
     <label>Título:</label>
     <input type="text" name="titulo" required>
-    <label>Fecha de entrega:</label>
-    <input type="date" name="fecha" required>
+
+    <label>Fecha de entrega:</label> 
+    <input type="datetime-local" name="fecha" required> 
+
     <label>Descripción de la tarea:</label>
     <textarea name="descripcion" rows="4" required></textarea>
-    <button type="submit">Agregar</button>
+
+    <label>Estado:</label>
+    <select name="estatus" required>
+        <option value="pendiente">Pendiente</option>
+        <option value="completada">Completada</option>
+    </select>
+
+    <label>Prioridad:</label>
+    <select name="prioridad" required>
+        <option value="alta">Alta</option>
+        <option value="media" selected>Media</option>
+        <option value="baja">Baja</option>
+    </select>
+
+    <label>Etiquetas (separadas por comas):</label>
+    <input type="text" name="etiquetas" placeholder="ej: trabajo, urgente, proyecto">
+
+    <button type="submit">Agregar Tarea</button>
 </form>
-
-<div class="volver-container">
-    <a href="../../index.php" class="volver-btn">⬅ Volver</a>
-</div>
-
+ 
 </body>
 </html>
 
 <?php
 include('../includes/footer.php');
-?>
-
+?> 
 
 
 
