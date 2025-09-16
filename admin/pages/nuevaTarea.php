@@ -1,76 +1,31 @@
 <?php
-session_start();
+include('../includes/header.php');
+include_once(__DIR__ . '/../config/config.php');
 
-if (!isset($_SESSION['tareas'])) {
-    $_SESSION['tareas'] = [];
-}
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion']) && $_POST['accion'] === 'crear') {
+    $curso = $_POST['curso'];
+    $titulo = $_POST['titulo'];
+    $fecha = $_POST['fecha'];
+    $descripcion = $_POST['descripcion'];
 
-if (isset($_POST['accion']) && $_POST['accion'] === 'crear') {
-    $_SESSION['tareas'][] = [
-        "curso" => $_POST['curso'],
-        "titulo" => $_POST['titulo'],
-        "fecha" => $_POST['fecha']
-    ];
+    $stmt = $pdo->prepare("INSERT INTO tareas (curso, titulo, fecha, descripcion) VALUES (?, ?, ?, ?)");
+    $stmt->execute([$curso, $titulo, $fecha, $descripcion]);
+
+    header("Location: misTareas.php");
+    exit;
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <title>Gestión de Tareas</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f0f8f4;
-        margin: 0;
-        padding: 0;
-    }
-    h1 {
-        text-align: center;
-        color: #2e7d32;
-        padding: 20px 0;
-    }
-    form {
-        width: 90%;
-        margin: 20px auto;
-        background: white;
-        padding: 15px;
-        border-radius: 8px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    label {
-        font-weight: bold;
-        color: #2e7d32;
-    }
-    input {
-        width: 100%;
-        padding: 8px;
-        margin: 5px 0 15px 0;
-        border: 1px solid #c8e6c9;
-        border-radius: 4px;
-    }
-    button, .volver-btn {
-        background-color: #388e3c;
-        color: white;
-        padding: 8px 15px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        text-decoration: none;
-        display: inline-block;
-    }
-    button:hover, .volver-btn:hover {
-        background-color: #2e7d32;
-    }
-    .volver-container {
-        text-align: center;
-        margin-bottom: 20px;
-    }
-</style>
+<link rel="stylesheet" href="/assets/css/StyleDB.css">
 </head>
 <body>
 
-<h1> Gestión de Tareas</h1>
+<h1>Gestión de Tareas</h1>
 
 <form method="POST">
     <input type="hidden" name="accion" value="crear">
@@ -79,7 +34,9 @@ if (isset($_POST['accion']) && $_POST['accion'] === 'crear') {
     <label>Título:</label>
     <input type="text" name="titulo" required>
     <label>Fecha de entrega:</label>
-    <input type="text" name="fecha" required>
+    <input type="date" name="fecha" required>
+    <label>Descripción de la tarea:</label>
+    <textarea name="descripcion" rows="4" required></textarea>
     <button type="submit">Agregar</button>
 </form>
 
@@ -90,6 +47,9 @@ if (isset($_POST['accion']) && $_POST['accion'] === 'crear') {
 </body>
 </html>
 
+<?php
+include('../includes/footer.php');
+?>
 
 
 
