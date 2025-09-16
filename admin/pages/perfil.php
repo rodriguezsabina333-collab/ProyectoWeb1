@@ -1,13 +1,10 @@
 <?php
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-
+session_start();
 include('../includes/header.php');
 include_once(__DIR__ . '/../config/config.php');
 
 
-if (!isset($_SESSION['usuario']) || $_SESSION['usuario'] !== "ok") {
+if (!isset($_SESSION['usuario']) || $_SESSION['usuario'] !== "ok" || !isset($_SESSION['nombreUsuario'])) {
     header("Location: ../inicioSesion.php");
     exit;
 }
@@ -27,15 +24,7 @@ if (!$usuario) {
 }
 
 $id_usuario = $usuario['id_usuario'];
-
-
-if (isset($_GET['tema'])) {
-    $tema = $_GET['tema'] === 'oscuro' ? 'oscuro' : 'claro';
-    $_SESSION['tema'] = $tema;
-} elseif (!isset($_SESSION['tema'])) {
-    $_SESSION['tema'] = 'claro';
-}
-$tema_actual = $_SESSION['tema'];
+$fotoPerfil = !empty($usuario['foto_perfil']) ? $usuario['foto_perfil'] : 'default.png';
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -45,8 +34,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $apellido = $conn->real_escape_string($_POST['apellido']);
     $correo = $conn->real_escape_string($_POST['correo']);
     $telefono = $conn->real_escape_string($_POST['telefono']);
-    $fechanac = $conn->real_escape_string($_POST['fechanac']);
+    $fecha_nacimiento = $conn->real_escape_string($_POST['fecha_nacimiento']);
 
+    
+    if (isset($_FILES['foto_perfil']) && $_FILES['foto_perfil']['error'] === UPLOAD_ERR_OK) {
+        $archivoTmp = $_FILES['foto_perfil']['tmp_name'];
+        $nombreArchivo = basename($_FILES['foto_perfil']['name']);
+        $ext = strtolower(pathinfo($nombreArchivo, PATHINFO_EXTENSION));
+        $permitidas = ['jpg', 'jpeg', 'png', 'gif'];
+
+        if (in_array($ext, $permitidas)) {
+           
+            foreach ($permitidas as $extOld) {
+                $archivoViejo = __DIR__ . "/../../assets/img/user_" . $id_usuario . "." . $extOld;
+                if (file_exists($archivoViejo)) {
+                    unlink($archivoViejo);
+                }
+            }
+
+            $nuevoNombre = "user_" . $id_usuario . "." . $ext;
+            $rutaDestino = __DIR__ . "/../../assets/img/" . $nuevoNombre;
+
+            if (move_uploaded_file($archivoTmp, $rutaDestino)) {
+                $fotoPerfil = $nuevoNombre;
+            } else {
+                $error = "Error al subir la imagen.";
+            }
+        } else {
+            $error = "Formato de imagen no permitido. Solo jpg, png, gif.";
+        }
+    }
+
+    
+    if (!isset($fotoPerfil)) {
+        $fotoPerfil = $usuario['foto_perfil'];
+    }
+
+    
     $sqlUpdate = "UPDATE usuario SET 
         username = ?, 
         contra = ?, 
@@ -54,136 +78,107 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         apellido = ?, 
         correo = ?, 
         telefono = ?, 
-        fechadenacimiento = ?
+        fecha_nacimiento = ?, 
+        foto_perfil = ?
         WHERE id_usuario = ?";
 
     $stmtUpdate = $conn->prepare($sqlUpdate);
-    $stmtUpdate->bind_param("sssssssi", $username, $contra, $nombre, $apellido, $correo, $telefono, $fechanac, $id_usuario);
+    $stmtUpdate->bind_param("ssssssssi", $username, $contra, $nombre, $apellido, $correo, $telefono, $fecha_nacimiento, $fotoPerfil, $id_usuario);
 
     if ($stmtUpdate->execute()) {
         $msg = "Perfil actualizado correctamente.";
-        
-        $usuario['username'] = $username;
+        $usuario['username'] = $username; 
         $usuario['contra'] = $contra;
         $usuario['nombre'] = $nombre;
         $usuario['apellido'] = $apellido;
         $usuario['correo'] = $correo;
         $usuario['telefono'] = $telefono;
-        $usuario['fechadenacimiento'] = $fechanac;
+        $usuario['fecha_nacimiento'] = $fecha_nacimiento;
+        $usuario['foto_perfil'] = $fotoPerfil;
     } else {
         $error = "Error al actualizar: " . $stmtUpdate->error;
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Panel de Usuario</title>
-    <link rel="stylesheet" href="<?php echo URL_BASE ?>/assets/css/StyleP.css" />
+    <title>Perfil de Usuario</title>
+    <link rel="stylesheet" href="../../assets/css/StyleP.css" />
 </head>
 <body class="<?= $tema_actual ?>">
-    <div class="dashboard">
-        <aside class="sidebar">
-            <img src="<?= URL_BASE ?>/assets/img/<?= $usuario['foto_perfil'] ?? 'default.jpg' ?>" class="foto-perfil-mini" />
-            <h2><?= strtoupper($usuario['nombre'] ?? 'Usuario') ?></h2>
-            <nav>
-                <a href="#perfil" class="active">Perfil</a>
-                <a href="#config">Configuración</a>
-                <a href="#portafolio">Portafolio</a>
-                <a href="../logout.php">Salir</a>
-            </nav>
-        </aside>
+    <aside class="sidebar">
+        <img src="../../assets/img/<?= htmlspecialchars($usuario['foto_perfil']) ?>" alt="Foto perfil" class="foto-perfil-mini" />
+        <h2><?= htmlspecialchars($usuario['nombre']) ?></h2>
+        <nav>
+            <a href="#perfil" class="active" onclick="mostrarTab(event, 'perfil')">Perfil</a>
+            <a href="#config" onclick="mostrarTab(event, 'config')">Configuración</a>
+            <a href="#portafolio" onclick="mostrarTab(event, 'portafolio')">Portafolio</a>
+            <a href="<?php echo URL_BASE ?>index.php">Salir</a>
+        </nav>
+    </aside>
 
-        <main class="content">
-            
-            <section id="perfil" class="tab active">
-                <h1><?= strtoupper($usuario['nombre'] . ' ' . $usuario['apellido']) ?></h1>
-                <div class="perfil-info">
-                    <img src="<?= URL_BASE ?>/assets/img/<?= $usuario['foto_perfil'] ?? 'default.jpg' ?>" class="foto-perfil" />
-                    <form method="POST" enctype="multipart/form-data">
-                        <input type="file" name="nueva_foto" accept="image/*" />
-                        <button type="submit" name="subir_foto" class="btn-editar-img">Editar imagen de perfil</button>
-                    </form>
-                </div>
+    <main class="dashboard">
+        <section id="perfil" class="tab active">
+            <h1><?= htmlspecialchars($usuario['nombre'] . ' ' . $usuario['apellido']) ?></h1>
+            <div class="perfil-info">
+                <img src="../../assets/img/<?= htmlspecialchars($usuario['foto_perfil']) ?>" alt="Foto perfil" class="foto-perfil" />
+                <button class="btn-editar-img" onclick="document.getElementById('input-foto').click()">Editar imagen de perfil</button>
+            </div>
 
-                <form method="POST" action="perfil.php" class="form-perfil">
-                    <label>Usuario:
-                        <input type="text" name="username" value="<?= htmlspecialchars($usuario['username']) ?>" required />
-                    </label>
-                    <label>Contraseña:
-                        <input type="text" name="contra" value="<?= htmlspecialchars($usuario['contra']) ?>" required />
-                    </label>
-                    <label>Nombre:
-                        <input type="text" name="nombre" value="<?= htmlspecialchars($usuario['nombre']) ?>" required />
-                    </label>
-                    <label>Apellido:
-                        <input type="text" name="apellido" value="<?= htmlspecialchars($usuario['apellido']) ?>" required />
-                    </label>
-                    <label>Correo:
-                        <input type="email" name="correo" value="<?= htmlspecialchars($usuario['correo']) ?>" required />
-                    </label>
-                    <label>Teléfono:
-                        <input type="tel" name="telefono" value="<?= htmlspecialchars($usuario['telefono']) ?>" />
-                    </label>
-                    <label>Fecha de Nacimiento:
-                        <input type="date" name="fechanac" value="<?= htmlspecialchars($usuario['fechadenacimiento']) ?>" />
-                    </label>
-                    <label>Biografía:
-                        <textarea name="biografia"><?= htmlspecialchars($usuario['biografia'] ?? '') ?></textarea>
-                    </label>
-                    <button type="submit" class="btn-guardar">Guardar cambios</button>
-                </form>
-            </section>
+            <?php if (isset($msg)) echo "<p class='mensaje-exito'>$msg</p>"; ?>
+            <?php if (isset($error)) echo "<p class='mensaje-error'>$error</p>"; ?>
 
-          
-            <section id="config" class="tab">
-                <h2>Configuraciones del usuario</h2>
-                <form method="POST" action="perfil.php">
-                    <label>Idioma preferido:
-                        <select name="idioma">
-                            <option value="es" selected>Español (Latinoamérica)</option>
-                            <option value="en">English</option>
-                        </select>
-                    </label>
-                    <label>Zona horaria:
-                        <select name="zona">
-                            <option value="America/Guatemala" selected>Centroamérica</option>
-                            <option value="America/Mexico_City">México</option>
-                            <option value="America/New_York">EE.UU. Este</option>
-                        </select>
-                    </label>
-                    <div class="tema-switch">
-                        <p>Modo visual:</p>
-                        <a href="perfil.php?tema=claro" class="<?= $tema_actual === 'claro' ? 'activo' : '' ?>">Claro</a> | 
-                        <a href="perfil.php?tema=oscuro" class="<?= $tema_actual === 'oscuro' ? 'activo' : '' ?>">Oscuro</a>
-                    </div>
-                    <button type="submit" class="btn-guardar">Guardar configuración</button>
-                </form>
-            </section>
+            <form class="form-perfil" method="POST" action="perfil.php" enctype="multipart/form-data">
+                <input type="file" id="input-foto" name="foto_perfil" accept="image/*" style="display:none" />
 
-          
-            <section id="portafolio" class="tab">
-                <h2>Portafolios electrónicos</h2>
-                <p>Próximamente podrás subir tus proyectos destacados aquí.</p>
-            </section>
-        </main>
-    </div>
+                <label for="username">Usuario</label>
+                <input type="text" id="username" name="username" value="<?= htmlspecialchars($usuario['username']) ?>" required />
+
+                <label for="contra">Contraseña</label>
+                <input type="password" id="contra" name="contra" value="<?= htmlspecialchars($usuario['contra']) ?>" required />
+
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" name="nombre" value="<?= htmlspecialchars($usuario['nombre']) ?>" required />
+
+                <label for="apellido">Apellido</label>
+                <input type="text" id="apellido" name="apellido" value="<?= htmlspecialchars($usuario['apellido']) ?>" required />
+
+                <label for="correo">Correo electrónico</label>
+                <input type="email" id="correo" name="correo" value="<?= htmlspecialchars($usuario['correo']) ?>" required />
+
+                <label for="telefono">Teléfono</label>
+                <input type="text" id="telefono" name="telefono" value="<?= htmlspecialchars($usuario['telefono']) ?>" />
+
+                <label for="fechadenacimiento">Fecha de nacimiento</label>
+                <input type="date" id="fechadenacimiento" name="fechadenacimiento" value="<?= htmlspecialchars($usuario['fechadenacimiento']) ?>" />
+
+                <button type="submit" class="btn-guardar">Guardar cambios</button>
+            </form>
+        </section>
+
+        <section id="config" class="tab">
+            <h1>Configuración</h1>
+            <p>Aquí puedes poner las opciones de configuración del usuario.</p>
+        </section>
+
+        <section id="portafolio" class="tab">
+            <h1>Portafolio</h1>
+            <p>Aquí puedes mostrar el portafolio del usuario.</p>
+        </section>
+    </main>
 
     <script>
-        document.querySelectorAll('.sidebar nav a').forEach(link => {
-            link.addEventListener('click', e => {
-                if (link.getAttribute('href').startsWith('#')) {
-                    e.preventDefault();
-                    document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-                    document.querySelectorAll('.sidebar nav a').forEach(a => a.classList.remove('active'));
-                    const target = link.getAttribute('href');
-                    document.querySelector(target).classList.add('active');
-                    link.classList.add('active');
-                }
-            });
-        });
+        function mostrarTab(evt, tabNombre) {
+            evt.preventDefault();
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.sidebar nav a').forEach(link => link.classList.remove('active'));
+            document.getElementById(tabNombre).classList.add('active');
+            evt.currentTarget.classList.add('active');
+        }
     </script>
 </body>
 </html>
