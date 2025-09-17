@@ -25,8 +25,9 @@ $layoutClass = $isIndex ? 'layout-top' : 'layout';
 ?>
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-tema="<?php echo isset($_SESSION['tema']) ? $_SESSION['tema'] : 'claro'; ?>">
 <head> 
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ProyectoWeb1</title>

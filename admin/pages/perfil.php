@@ -2,14 +2,14 @@
 session_start();
 include('../includes/header.php');
 include_once(__DIR__ . '/../config/config.php');
- 
+
 if (!isset($_SESSION['usuario']) || $_SESSION['usuario'] !== "ok" || !isset($_SESSION['nombreUsuario'])) {
     header("Location: ../inicioSesion.php");
     exit;
 }
 
 $nombreUsuario = $_SESSION['nombreUsuario'];
- 
+
 $sqlUsuario = "SELECT * FROM usuario WHERE username = ?";
 $stmt = $conn->prepare($sqlUsuario);
 $stmt->bind_param("s", $nombreUsuario);
@@ -23,74 +23,80 @@ if (!$usuario) {
 
 $id_usuario = $usuario['id_usuario'];
 $fotoPerfil = !empty($usuario['foto_perfil']) ? $usuario['foto_perfil'] : 'default.png';
- 
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $conn->real_escape_string($_POST['username']);
-    $contra = $conn->real_escape_string($_POST['contra']);
-    $nombre = $conn->real_escape_string($_POST['nombre']);
-    $apellido = $conn->real_escape_string($_POST['apellido']);
-    $correo = $conn->real_escape_string($_POST['correo']);
-    $telefono = $conn->real_escape_string($_POST['telefono']);
-    $fechadenacimiento = $conn->real_escape_string($_POST['fechadenacimiento']);
+   
+    if (isset($_POST['form_type'])) {
+        $form_type = $_POST['form_type'];
+        
+        if ($form_type === 'perfil') {
+        
+            $username = $conn->real_escape_string($_POST['username']);
+            $contra = $conn->real_escape_string($_POST['contra']);
+            $nombre = $conn->real_escape_string($_POST['nombre']);
+            $apellido = $conn->real_escape_string($_POST['apellido']);
+            $correo = $conn->real_escape_string($_POST['correo']);
+            $telefono = $conn->real_escape_string($_POST['telefono']);
+            $fechadenacimiento = $conn->real_escape_string($_POST['fechadenacimiento']);
 
-    if (isset($_FILES['foto_perfil']) && $_FILES['foto_perfil']['error'] === UPLOAD_ERR_OK) {
-        $archivoTmp = $_FILES['foto_perfil']['tmp_name'];
-        $nombreArchivo = basename($_FILES['foto_perfil']['name']);
-        $ext = strtolower(pathinfo($nombreArchivo, PATHINFO_EXTENSION));
-        $permitidas = ['jpg', 'jpeg', 'png', 'gif'];
-
-        if (in_array($ext, $permitidas)) { 
-            foreach ($permitidas as $extOld) {
-                $archivoViejo = __DIR__ . "/../../assets/img/user_" . $id_usuario . "." . $extOld;
-                if (file_exists($archivoViejo)) {
-                    unlink($archivoViejo);
-                }
+        
+            if (isset($_FILES['foto_perfil']) && $_FILES['foto_perfil']['error'] === UPLOAD_ERR_OK) {
+                
             }
 
-            $nuevoNombre = "user_" . $id_usuario . "." . $ext;
-            $rutaDestino = __DIR__ . "/../../assets/img/" . $nuevoNombre;
+            if (!isset($fotoPerfil)) {
+                $fotoPerfil = $usuario['foto_perfil'];
+            }
 
-            if (move_uploaded_file($archivoTmp, $rutaDestino)) {
-                $fotoPerfil = $nuevoNombre;
+            $sqlUpdate = "UPDATE usuario SET 
+                username = ?, 
+                contra = ?, 
+                nombre = ?, 
+                apellido = ?, 
+                correo = ?, 
+                telefono = ?, 
+                fechadenacimiento = ?, 
+                foto_perfil = ?
+                WHERE id_usuario = ?";
+
+            $stmtUpdate = $conn->prepare($sqlUpdate);
+            $stmtUpdate->bind_param("ssssssssi", $username, $contra, $nombre, $apellido, $correo, $telefono, $fechadenacimiento, $fotoPerfil, $id_usuario);
+
+            if ($stmtUpdate->execute()) {
+                $msg = "Perfil actualizado correctamente.";
+               
+                $usuario['username'] = $username;
+                $usuario['contra'] = $contra;
+                $usuario['nombre'] = $nombre;
+                $usuario['apellido'] = $apellido;
+                $usuario['correo'] = $correo;
+                $usuario['telefono'] = $telefono;
+                $usuario['fechadenacimiento'] = $fechadenacimiento;
+                $usuario['foto_perfil'] = $fotoPerfil;
             } else {
-                $error = "Error al subir la imagen.";
+                $error = "Error al actualizar: " . $stmtUpdate->error;
             }
-        } else {
-            $error = "Formato de imagen no permitido. Solo jpg, jpeg, png, gif.";
-        }
-    }
-
-    if (!isset($fotoPerfil)) {
-        $fotoPerfil = $usuario['foto_perfil'];
-    }
-
-    $sqlUpdate = "UPDATE usuario SET 
-        username = ?, 
-        contra = ?, 
-        nombre = ?, 
-        apellido = ?, 
-        correo = ?, 
-        telefono = ?, 
-        fechadenacimiento = ?, 
-        foto_perfil = ?
-        WHERE id_usuario = ?";
-
-    $stmtUpdate = $conn->prepare($sqlUpdate);
-    $stmtUpdate->bind_param("ssssssssi", $username, $contra, $nombre, $apellido, $correo, $telefono, $fechadenacimiento, $fotoPerfil, $id_usuario);
-
-    if ($stmtUpdate->execute()) {
-        $msg = "Perfil actualizado correctamente.";
+        } elseif ($form_type === 'configuracion') {
        
-        $usuario['username'] = $username;
-        $usuario['contra'] = $contra;
-        $usuario['nombre'] = $nombre;
-        $usuario['apellido'] = $apellido;
-        $usuario['correo'] = $correo;
-        $usuario['telefono'] = $telefono;
-        $usuario['fechadenacimiento'] = $fechadenacimiento;
-        $usuario['foto_perfil'] = $fotoPerfil;
-    } else {
-        $error = "Error al actualizar: " . $stmtUpdate->error;
+            $tema = $conn->real_escape_string($_POST['tema']);
+            $notificaciones = isset($_POST['notificaciones']) ? 1 : 0;
+            $tipo_notificacion = $conn->real_escape_string($_POST['tipo_notificacion']);
+
+            $sqlConfig = "UPDATE usuario SET tema = ?, notificaciones = ?, tipo_notificacion = ? WHERE id_usuario = ?";
+            $stmtConfig = $conn->prepare($sqlConfig);
+            $stmtConfig->bind_param("sisi", $tema, $notificaciones, $tipo_notificacion, $id_usuario);
+
+            if ($stmtConfig->execute()) {
+                $msg_config = "Configuración guardada correctamente.";
+               
+                $usuario['tema'] = $tema;
+                $usuario['notificaciones'] = $notificaciones;
+                $usuario['tipo_notificacion'] = $tipo_notificacion;
+            } else {
+                $error_config = "Error al guardar configuración: " . $stmtConfig->error;
+            }
+        }
     }
 }
 ?>
@@ -101,25 +107,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Perfil de Usuario</title>
-    <link rel="stylesheet" href="../../assets/css/StyleP.css" />
-</head>
+    <link rel="stylesheet" href="../../assets/css/StylenueT.css">
+   
+</head> 
 <body>
     <aside class="sidebar">
         <img src="../../assets/img/<?= htmlspecialchars($usuario['foto_perfil']) ?>" alt="Foto perfil" class="foto-perfil-mini" />
         <h2><?= htmlspecialchars($usuario['nombre']) ?></h2>
         <nav>
             <a href="#perfil" class="active">Perfil</a>
-            <a href="#config">Configuración</a>
+            <a href="<?php echo URL_BASE ?>admin/pages/configuracion.php>">Configuración</a> 
             <a href="#portafolio">Portafolio</a>
             <a href="<?php echo URL_BASE ?>index.php">Salir</a>
         </nav>
     </aside>
 
-    <main class="dashboard">
+    <main class="dashboard"> 
+      
         <section id="perfil" class="tab active">
             <h1><?= htmlspecialchars($usuario['nombre'] . ' ' . $usuario['apellido']) ?></h1>
 
-            <form class="form-perfil" method="POST" action="perfil.php" enctype="multipart/form-data">
+            <form class="form-perfil" method="POST" action="perfil.php" enctype="multipart/form-data">  
+                <input type="hidden" name="form_type" value="perfil">    
+                     
                 <div class="perfil-info">
                     <img src="../../assets/img/<?= htmlspecialchars($usuario['foto_perfil']) ?>" alt="Foto perfil" class="foto-perfil" />
                     <label for="input-foto" class="btn-editar-img" style="cursor: pointer;">Editar imagen de perfil</label>
@@ -154,15 +164,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
         </section>
 
-        <section id="config" class="tab">
-            <h1>Configuración</h1>
-            <p>Aquí puedes poner las opciones de configuración del usuario.</p>
-        </section>
+        
+        
+    
+    </main>  
 
-        <section id="portafolio" class="tab">
-            <h1>Portafolio</h1>
-            <p>Aquí puedes mostrar el portafolio del usuario.</p>
-        </section>
-    </main> 
+    <script>
+       
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                
+                
+                document.querySelectorAll('.tab').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                
+               
+                document.getElementById(targetId).classList.add('active');
+                
+                
+                document.querySelectorAll('nav a').forEach(a => { 
+                    a.classList.remove('active');
+              }); 
+                this.classList.add('active');
+            });
+        });
+    </script>
 </body>
-</html>
+</html> 
