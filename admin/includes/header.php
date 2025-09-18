@@ -61,9 +61,6 @@ $layoutClass = $isIndex ? 'layout-top' : 'layout';
                     <a class="nav-link" href="<?php echo URL_BASE ?>admin/pages/configuracion.php">Configuración</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo URL_BASE ?>admin/pages/exportar.php">Exportar</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="<?php echo URL_BASE ?>admin/pages/recordatorios.php">Recordatorios</a>
                 </li>
                 <li class="nav-item">

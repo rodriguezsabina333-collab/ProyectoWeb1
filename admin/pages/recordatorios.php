@@ -1,32 +1,36 @@
 <?php
 include('../includes/header.php'); 
-
-include_once(__DIR__ . "/../config/conexion.php");
+include_once(__DIR__ . "/../config/conexion.php"); 
 
 $estado = $_GET['estado'] ?? '';
 $prioridad = $_GET['prioridad'] ?? '';
-$etiqueta = $_GET['etiqueta'] ?? '';
+$etiqueta = $_GET['etiqueta'] ?? ''; 
+$curso = $_GET['curso'] ?? ''; 
+ 
+$eventos = [];  
 
+if (!empty($_GET)) { 
+    $sql = "SELECT * FROM reentrenosdatos WHERE 1";
+    if ($estado) $sql .= " AND estatus = '$estado'";
+    if ($prioridad) $sql .= " AND prioridad = '$prioridad'";
+    if ($etiqueta) $sql .= " AND etiquetas LIKE '%$etiqueta%'";
+    if ($curso) $sql .= " AND curso = '$curso'";
+    $sql .= " ORDER BY fecha ASC";
 
-$sql = "SELECT * FROM recordatorios WHERE 1";
-if ($estado) $sql .= " AND estado = '$estado'";
-if ($prioridad) $sql .= " AND prioridad = '$prioridad'";
-if ($etiqueta) $sql .= " AND etiqueta LIKE '%$etiqueta%'";
-$sql .= " ORDER BY fecha ASC";
-
-$result = $conn->query($sql);
-$eventos = [];
-if ($result && $result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $eventos[] = [
-            'title' => $row['titulo'],
-            'start' => $row['fecha'],
-            'description' => $row['descripcion'],
-            'color' => ($row['estado'] === 'completada') ? '#28a745' : '#dc3545'
-        ];
+    $result = $conn->query($sql);
+    if ($result && $result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $eventos[] = [
+                'title' => $row['curso'] . " - " . $row['titulo'],
+                'start' => $row['fecha'],
+                'description' => $row['descripcion'],
+                'color' => ($row['estatus'] === 'finalizado') ? '#28a745' : '#dc3545'
+            ];
+        }
     }
-}
-?>
+} 
+?> 
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -44,21 +48,20 @@ if ($result && $result->num_rows > 0) {
             margin: 40px auto;
         }
     </style>
-</head>
-
+</head> 
 
 <body>
 
     <div class="container mt-4">
         <h2 class="mb-3 text-center">Recordatorios con Filtros</h2>
 
-        
         <form method="GET" class="row mb-4">
             <div class="col-md-3">
                 <select name="estado" class="form-control">
                     <option value="">Estado</option>
                     <option value="pendiente" <?= $estado == 'pendiente' ? 'selected' : '' ?>>Pendiente</option>
-                    <option value="completada" <?= $estado == 'completada' ? 'selected' : '' ?>>Completada</option>
+                    <option value="en_proceso" <?= $estado == 'en_proceso' ? 'selected' : '' ?>>En proceso</option>
+                    <option value="finalizado" <?= $estado == 'finalizado' ? 'selected' : '' ?>>Finalizado</option>
                 </select>
             </div>
             <div class="col-md-3">
@@ -66,18 +69,26 @@ if ($result && $result->num_rows > 0) {
                     <option value="">Prioridad</option>
                     <option value="alta" <?= $prioridad == 'alta' ? 'selected' : '' ?>>Alta</option>
                     <option value="media" <?= $prioridad == 'media' ? 'selected' : '' ?>>Media</option>
-                    <option value="baja" <?= $prioridad == 'baja' ? 'selected' : '' ?>>Baja</option>
+                  <option value="baja" <?= $prioridad == 'baja' ? 'selected' : '' ?>>Baja</option>
+              </select> 
+            </div> 
+            <div class="col-md-3">
+                <select name="curso" class="form-control">
+                    <option value="">Curso</option>
+                    <option value="Base de Datos" <?= $curso == 'Base de Datos' ? 'selected' : '' ?>>Base de Datos</option>
+                    <option value="Filosofía" <?= $curso == 'Filosofía' ? 'selected' : '' ?>>Filosofía</option>
+                    <option value="Matemáticas" <?= $curso == 'Matemáticas' ? 'selected' : '' ?>>Matemáticas</option>
+                    <option value="Programación" <?= $curso == 'Programación' ? 'selected' : '' ?>>Programación</option>
                 </select>
             </div>
             <div class="col-md-3">
                 <input type="text" name="etiqueta" class="form-control" placeholder="Etiqueta..." value="<?= htmlspecialchars($etiqueta) ?>">
             </div>
-            <div class="col-md-3">
+            <div class="col-md-12 mt-2">
                 <button type="submit" class="btn btn-primary w-100">Filtrar</button>
             </div>
         </form>
 
-        
         <div id="calendar"></div>
     </div>
 
@@ -93,16 +104,13 @@ if ($result && $result->num_rows > 0) {
                 },
                 events: <?= json_encode($eventos) ?>,
                 eventClick: function(info) {
-                    alert( + info.event.title  + (info.event.extendedProps.description || "Sin descripción"));
+                    alert(info.event.title + "\n" + (info.event.extendedProps.description || "Sin descripción"));
                 }
             });
             calendar.render();
         });
     </script>
 
-    <?php
-    include('../includes/footer.php'); 
-    ?>
-</body>
-
-</html>
+    <?php include('../includes/footer.php'); ?>
+</body> 
+</html> 
