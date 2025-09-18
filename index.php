@@ -61,6 +61,7 @@ if (isset($_GET['registro']) && $_GET['registro'] === 'ok') {
         const alert = document.querySelector('.alert-success');
         if (alert) alert.remove();
     }, 4000);
+<<<<<<< HEAD
 </script>
 <<<<<<< HEAD
 
@@ -71,3 +72,6 @@ if (isset($_GET['registro']) && $_GET['registro'] === 'ok') {
 </body>
 </html>
 >>>>>>> cc0d15ec687913e998921ad0bd83861fea384c12
+=======
+</script>
+>>>>>>> parent of a0738ac (los cabios echos en los style y en configuracion.php)

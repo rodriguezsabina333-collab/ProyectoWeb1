@@ -51,12 +51,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <!DOCTYPE html>
-<html lang="es" data-tema="<?php echo $tema; ?>">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Gestión de Tareas</title>
     <link rel="stylesheet" href="../../assets/css/StylenueT.css">
-    <link rel="stylesheet" href="../../assets/css/StyleConf.css" />
 </head>
 <body>
 

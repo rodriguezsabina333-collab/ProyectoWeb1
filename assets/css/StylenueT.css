@@ -128,9 +128,13 @@ input:required, textarea:required, select:required {
 input:valid, textarea:valid, select:valid {
 <<<<<<< HEAD
     border-left: 4px solid #76b376
+<<<<<<< HEAD
 }
 
 =======
     border-left: 4px solid #4CAF50
 }
 >>>>>>> cc0d15ec687913e998921ad0bd83861fea384c12
+=======
+}
+>>>>>>> parent of a0738ac (los cabios echos en los style y en configuracion.php)

@@ -63,12 +63,11 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Mis Tareas</title>
     <link rel="stylesheet" href="../../assets/css/Styledash.css" />
-    <link rel="stylesheet" href="../../assets/css/StyleConf.css" />
 </head>
 
 <body>
     <div class="contenedor-tareas">
-        <h2 class="titulo-seccion">Mis Tareas</h2> 
+        <h2 class="titulo-seccion">Mis Tareas</h2>
 
         <div class="acciones-superiores">
             <form action="" method="get">

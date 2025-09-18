@@ -43,7 +43,6 @@ if ($_POST) {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Inicio de Sesión</title>
     <link rel="stylesheet" href="<?php echo URL_BASE ?>/assets/css/StyleI_S.css" />
-    <link rel="stylesheet" href="../../assets/css/StyleConf.css" />
 </head>
 <body>
    <h1 class="logo-text">Homework UVG</h1>

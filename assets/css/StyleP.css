@@ -113,16 +113,5 @@ h2 {
   margin-bottom: 10px;
 }
 
-[data-tema="oscuro"] body {
-  background-color: #121212;
-  color: #e0e0e0;
-}
-
-[data-tema="claro"] body {
-  background-color: #f9f9f9;
-  color: #222;
-}
-
-
  
 

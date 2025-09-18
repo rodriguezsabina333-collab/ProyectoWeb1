@@ -4,12 +4,11 @@ include_once(__DIR__ . '/../config/config.php');
 include_once(__DIR__ . '/../config/conexion.php');
 
 if (!isset($_SESSION['usuario']) || $_SESSION['usuario'] !== "ok" || !isset($_SESSION['nombreUsuario'])) {
-    header('Location: ' . URL_BASE . '/../pages/inicioSesion.php'); 
+    header('Location:  '. URL_BASE . '/../pages/inicioSesion.php'); 
     exit;
 }
 
 $nombreUsuario = $_SESSION['nombreUsuario'];
-
 
 $sqlUsuario = "SELECT * FROM usuario WHERE username = ?";
 $stmt = $conn->prepare($sqlUsuario);
@@ -24,43 +23,24 @@ if (!$usuario) {
 
 $id_usuario = $usuario['id_usuario'];
 
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  
-    if (isset($_POST['action']) && $_POST['action'] === 'guardar_tema') {
-        $tema = $_POST['tema'];
-        $sqlTema = "UPDATE usuario SET tema = ? WHERE id_usuario = ?";
-        $stmtTema = $conn->prepare($sqlTema);
-        $stmtTema->bind_param("si", $tema, $id_usuario);
-        $stmtTema->execute();
-
-        header('Content-Type: application/json');
-        echo json_encode(['success' => true]);
-        exit;
-    }
-
-  
-    if (isset($_POST['form_type']) && $_POST['form_type'] === 'configuracion') {
-        $tema = $_POST['tema'];
-        $notificaciones = isset($_POST['notificaciones']) ? 1 : 0;
-        $tipo_notificacion = $_POST['tipo_notificacion'];
-
-        $sqlConfig = "UPDATE usuario SET tema = ?, notificaciones = ?, tipo_notificacion = ? WHERE id_usuario = ?";
-        $stmtConfig = $conn->prepare($sqlConfig);
-        $stmtConfig->bind_param("sisi", $tema, $notificaciones, $tipo_notificacion, $id_usuario);
-        $stmtConfig->execute();
-
-        header("Location: configuracion.php?guardado=1");
-        exit;
-    }
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'guardar_tema') {
+    $tema = $_POST['tema'];
+    
+    $sqlTema = "UPDATE usuario SET tema = ? WHERE id_usuario = ?";
+    $stmtTema = $conn->prepare($sqlTema);
+    $stmtTema->bind_param("si", $tema, $id_usuario);
+    $stmtTema->execute();
+    
+    header('Content-Type: application/json');
+    echo json_encode(['success' => true]);
+    exit;
 }
 
-$temaActual = isset($usuario['tema']) ? $usuario['tema'] : 'claro';
 ?>
 
 <?php include('../includes/header.php'); ?>
 <!DOCTYPE html>
-<html lang="es" data-tema="<?php echo $temaActual; ?>">
+<html lang="es">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -84,8 +64,8 @@ $temaActual = isset($usuario['tema']) ? $usuario['tema'] : 'claro';
                     <h3>Preferencias de Tema</h3>
                     <label for="tema">Modo de visualización:</label>
                     <select id="tema" name="tema">
-                        <option value="claro" <?php echo ($temaActual == 'claro') ? 'selected' : ''; ?>>Modo Claro</option>
-                        <option value="oscuro" <?php echo ($temaActual == 'oscuro') ? 'selected' : ''; ?>>Modo Oscuro</option>
+                        <option value="claro" <?php echo (isset($usuario['tema']) && $usuario['tema'] == 'claro') ? 'selected' : ''; ?>>Modo Claro</option>
+                        <option value="oscuro" <?php echo (isset($usuario['tema']) && $usuario['tema'] == 'oscuro') ? 'selected' : ''; ?>>Modo Oscuro</option>
                     </select>
                 </div>
 
@@ -98,8 +78,8 @@ $temaActual = isset($usuario['tema']) ? $usuario['tema'] : 'claro';
                     
                     <label for="tipo_notificacion">Método de notificación:</label>
                     <select id="tipo_notificacion" name="tipo_notificacion">
-                        <option value="navegador" <?php echo ($usuario['tipo_notificacion'] == 'navegador') ? 'selected' : ''; ?>>Notificación del navegador</option>
-                        <option value="email" <?php echo ($usuario['tipo_notificacion'] == 'email') ? 'selected' : ''; ?>>Correo electrónico</option>
+                        <option value="navegador" <?php echo (isset($usuario['tipo_notificacion']) && $usuario['tipo_notificacion'] == 'navegador') ? 'selected' : ''; ?>>Notificación del navegador</option>
+                        <option value="email" <?php echo (isset($usuario['tipo_notificacion']) && $usuario['tipo_notificacion'] == 'email') ? 'selected' : ''; ?>>Correo electrónico</option>
                     </select>
                 </div>
                 
@@ -109,7 +89,7 @@ $temaActual = isset($usuario['tema']) ? $usuario['tema'] : 'claro';
     </div>
 
     <script>
-        // Cambiar tema en tiempo real y guardar en BD
+       
         document.getElementById('tema').addEventListener('change', function() {
             const selectedTheme = this.value;
             document.documentElement.setAttribute('data-tema', selectedTheme);
@@ -121,8 +101,10 @@ $temaActual = isset($usuario['tema']) ? $usuario['tema'] : 'claro';
             xhr.send("action=guardar_tema&tema=" + selectedTheme);
         });
 
+        
         document.addEventListener('DOMContentLoaded', () => {
-            const storedTheme = localStorage.getItem('tema') || "<?php echo $temaActual; ?>";
+            const storedTheme = "<?php echo isset($usuario['tema']) ? $usuario['tema'] : 'claro'; ?>";
+            localStorage.setItem('tema', storedTheme);
             document.documentElement.setAttribute('data-tema', storedTheme);
         });
     </script>
