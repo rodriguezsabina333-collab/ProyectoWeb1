@@ -3,8 +3,8 @@
     --color-texto: #222222;
     --color-titulo: #333333;
     --color-borde: #3a3636;
-    --color-enlace: #76b376;
-    --color-enlace-hover: #5f995f;
+    --color-enlace: #4CAF50;
+    --color-enlace-hover: #4CAF50;
     --color-fondo-form: #f9f9f9;
 }
 
@@ -13,8 +13,8 @@
     --color-texto: #f5f5f5;
     --color-titulo: #ffffff;
     --color-borde: #444444;
-    --color-enlace: #76b376;
-    --color-enlace-hover: #8ad18a;
+    --color-enlace: #4CAF50;
+    --color-enlace-hover: #4CAF50;
     --color-fondo-form: #2c2c2c;
 }
 

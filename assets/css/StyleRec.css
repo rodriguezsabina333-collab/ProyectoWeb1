@@ -1,5 +1,10 @@
-.fc-event {
-    background-color: #76b376 !important;  
+#calendar {  
+    max-width: 900px;
+    margin: 40px auto;
+} 
+      
+.fc-event { 
+    background-color: #4CAF50 !important;
     border: none !important;
     color: white !important;
     font-weight: bold;
@@ -11,7 +16,21 @@
 
 
 .fc .fc-event {
-    background-color: #76b376 !important;
-    border-color: #76b376 !important;
+    background-color: #4CAF50!important;
+    border-color: #4CAF50 !important;
     color: white !important;
+} 
+ 
+.fc .fc-col-header-cell-cushion,
+.fc .fc-daygrid-day-number {
+    font-family: 'Igia', sans-serif;
+    font-weight: bold;
+    color: #333;
+}
+
+.btn-primary {
+    background-color: #4CAF50 !important;
+    border-color: #4CAF50 !important;
+    color: white !important;
+    font-weight: bold;
 }

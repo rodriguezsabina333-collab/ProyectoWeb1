@@ -53,19 +53,19 @@
     text-decoration: none;
     text-align: center;
     color: white;
-    background-color: #76b376;
+    background-color: #4CAF50;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
     border: none;
     cursor: pointer;
 }
 
 .acciones-tarea button:hover {
-    background-color: #6a9c6a;
+    background-color: #4CAF50;
 }
 
 .btn-editar,
 .btn-eliminar {
-    background-color: #76b376;
+    background-color: #4CAF50;
 }
 
 .btn-eliminar {

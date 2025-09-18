@@ -34,7 +34,8 @@ $layoutClass = $isIndex ? 'layout-top' : 'layout';
     <link rel="stylesheet" href="<?php echo URL_BASE ?>/assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="<?php echo URL_BASE ?>/assets/css/StyleH.css">
-</head>
+    <?php if (isset($extra_css)) echo $extra_css; ?> 
+</head>  
 
 <body>
     <div class="<?php echo $layoutClass; ?>">

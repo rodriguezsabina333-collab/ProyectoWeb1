@@ -1,0 +1,57 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    overflow-x: hidden;
+}
+
+.pantalla-verde {
+    width: 100%;
+    background-color: #4CAF50;
+    padding: 60px;
+    box-sizing: border-box;
+}
+
+.contenido-bienvenida {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.texto h1 {
+    font-size: 48px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.texto h2 {
+    font-size: 20px;
+    font-weight: normal;
+    color: #f0f0f0;
+}
+
+.logo img {
+    max-width: 300px;
+    height: auto;
+}
+
+.seccion-blanca {
+    background-color: white;
+    padding: 60px 0;
+}
+
+.footer {
+    width: 100%;
+    background-color: #222;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.footer-content {
+    width: 100%;
+    padding: 0 20px;
+}
