@@ -1,11 +1,4 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-/* ==============================
-   VARIABLES DE COLOR
-   ============================== */
-
-/* Tema Claro */
-:root[data-tema="claro"] {
+/*:root[data-tema="claro"] { 
   --color-fondo: #ffffff;
   --color-texto: #000000;
   --color-fondo-secundario: #f8f9fa;
@@ -19,7 +12,7 @@
   --color-borde: #cccccc;
 }
 
-/* Tema Oscuro */
+
 :root[data-tema="oscuro"] {
   --color-fondo: #121212;
   --color-texto: #e0e0e0;
@@ -32,8 +25,8 @@
   --color-boton-texto: #ffffff;
   --color-boton-hover: #388e3c;
   --color-borde: #444444;
-=======
-:root {
+
+/*{
     --color-fondo: #ffffff;
     --color-texto: #222222;
     --color-titulo: #333333;
@@ -41,10 +34,10 @@
     --color-enlace: #4CAF50;
     --color-enlace-hover: #4CAF50;
     --color-fondo-form: #f9f9f9;
-}
+}*/
 
-=======
-:root {
+
+:root { 
     --color-fondo: #ffffff;
     --color-texto: #222222;
     --color-titulo: #333333;
@@ -54,22 +47,17 @@
     --color-fondo-form: #f9f9f9;
 }
 
->>>>>>> parent of a0738ac (los cabios echos en los style y en configuracion.php)
-[data-tema="oscuro"] {
+[data-tema="oscuro"] { 
     --color-fondo: #1e1e1e;
     --color-texto: #f5f5f5;
     --color-titulo: #ffffff;
-    --color-borde: #444444;
-<<<<<<< HEAD
+    --color-borde: #444444;  
     --color-enlace: #4CAF50;
-    --color-enlace-hover: #4CAF50;
+    --color-enlace-hover: #4CAF50; 
     --color-fondo-form: #2c2c2c;
->>>>>>> cc0d15ec687913e998921ad0bd83861fea384c12
-=======
-    --color-enlace: #76b376;
+    --color-enlace: #76b376; 
     --color-enlace-hover: #8ad18a;
-    --color-fondo-form: #2c2c2c;
->>>>>>> parent of a0738ac (los cabios echos en los style y en configuracion.php)
+    --color-fondo-form: #2c2c2c; 
 }
 
 body {
@@ -182,14 +170,4 @@ textarea:focus {
     border-color: var(--color-enlace);
     outline: none;
 }
-
-a {
-    color: var(--color-enlace);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-a:hover {
-    color: var(--color-enlace-hover);
-    text-decoration: underline;
-}
+  
