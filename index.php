@@ -25,7 +25,7 @@ if (isset($_GET['registro']) && $_GET['registro'] === 'ok') {
       <h2>Plataforma Homework UVG para apoyar tu aprendizaje.</h2>
     </div>
     <div class="logo">
-      <img src="assets/img/208.png" alt="UVG" class="img-fluid">
+      <img src="assets/img/logoU.png" alt="UVG" class="img-fluid">
     </div>
   </div>
 </div>
@@ -61,17 +61,8 @@ if (isset($_GET['registro']) && $_GET['registro'] === 'ok') {
         const alert = document.querySelector('.alert-success');
         if (alert) alert.remove();
     }, 4000);
-<<<<<<< HEAD
-</script>
-<<<<<<< HEAD
-
-<?php include('../includes/tema.php'); ?>
-<!DOCTYPE html>
-<html lang="es" data-tema="<?= $temaUsuario ?>">
-=======
+</script> 
 </body>
 </html>
->>>>>>> cc0d15ec687913e998921ad0bd83861fea384c12
-=======
-</script>
->>>>>>> parent of a0738ac (los cabios echos en los style y en configuracion.php)
+
+
