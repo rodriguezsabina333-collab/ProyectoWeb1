@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Configuración - Sistema de Tareas</title>
-    <link rel="stylesheet" href="../../assets/css/StyleConf.css" />
+    <link rel="stylesheet" href="../../assets/css/StyleConf.css" />  
 </head>
 <body>
     <div class="config-container">
