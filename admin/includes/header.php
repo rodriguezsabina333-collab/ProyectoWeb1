@@ -41,8 +41,13 @@ $tema = isset($_SESSION['tema']) ? $_SESSION['tema'] : 'oscuro';
     <link rel="stylesheet" href="<?php echo URL_BASE ?>/assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="<?php echo URL_BASE ?>/assets/css/StyleH.css">
+<<<<<<< HEAD
     <link rel="stylesheet" href="../../assets/css/StyleConf.css" />
 </head>
+=======
+    <?php if (isset($extra_css)) echo $extra_css; ?> 
+</head>  
+>>>>>>> cc0d15ec687913e998921ad0bd83861fea384c12
 
 <body>
     <div class="<?php echo $layoutClass; ?>">

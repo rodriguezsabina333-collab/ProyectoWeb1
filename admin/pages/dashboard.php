@@ -26,7 +26,21 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id']))
 }
 
 $tareas = [];
-if (!empty($curso_filtro)) {
+
+if (isset($_GET['id']) && !empty($_GET['id'])) {
+    $id = intval($_GET['id']);
+    $stmt = $conn->prepare("SELECT * FROM reentrenosdatos WHERE id = ?");
+    if ($stmt) {
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+        if ($resultado && $resultado->num_rows > 0) {
+            while ($fila = $resultado->fetch_assoc()) {
+                $tareas[] = $fila;
+            }
+        }
+    }
+} elseif (!empty($curso_filtro)) {
     $stmt = $conn->prepare("SELECT * FROM reentrenosdatos WHERE curso = ? ORDER BY fecha ASC");
     if ($stmt) {
         $stmt->bind_param("s", $curso_filtro);
@@ -39,7 +53,7 @@ if (!empty($curso_filtro)) {
         }
     }
 }
-?>
+?> 
 
 <!DOCTYPE html>
 <html lang="es">

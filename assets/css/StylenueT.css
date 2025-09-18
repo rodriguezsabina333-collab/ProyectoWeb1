@@ -64,7 +64,7 @@ select {
 }
 
 button[type="submit"] {
-    background-color: #76b376;
+    background-color: #4CAF50;
     color: white;
     padding: 15px 30px;
     border: none;
@@ -77,7 +77,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-    background-color: #76b376;
+    background-color: #4CAF50;
 }
 
 
@@ -126,6 +126,11 @@ input:required, textarea:required, select:required {
 }
 
 input:valid, textarea:valid, select:valid {
+<<<<<<< HEAD
     border-left: 4px solid #76b376
 }
 
+=======
+    border-left: 4px solid #4CAF50
+}
+>>>>>>> cc0d15ec687913e998921ad0bd83861fea384c12

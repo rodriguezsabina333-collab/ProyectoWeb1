@@ -1,6 +1,6 @@
 <?php
-include('../includes/header.php'); 
-include_once(__DIR__ . "/../config/conexion.php"); 
+include('../includes/header.php');
+include_once(__DIR__ . "/../config/conexion.php");
 
 $estado = $_GET['estado'] ?? '';
 $prioridad = $_GET['prioridad'] ?? '';
@@ -8,7 +8,7 @@ $etiqueta = $_GET['etiqueta'] ?? '';
 $curso = $_GET['curso'] ?? ''; 
  
 $eventos = [];  
- 
+
 if (!empty($_GET)) { 
     $sql = "SELECT * FROM reentrenosdatos WHERE 1";
     if ($estado) $sql .= " AND estatus = '$estado'";
@@ -21,16 +21,17 @@ if (!empty($_GET)) {
     if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             $eventos[] = [
+                'id' => $row['id'],
                 'title' => $row['curso'] . " - " . $row['titulo'],
                 'start' => $row['fecha'],
                 'description' => $row['descripcion'],
-                'color' => ($row['estatus'] === 'finalizado') ? '#28a745' : '#dc3545'
+                'estatus' => $row['estatus'],
+                'curso' => $row['curso']
             ];
         }
     }
-} 
-?> 
-
+}
+?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -38,20 +39,14 @@ if (!empty($_GET)) {
 <head>
     <meta charset="UTF-8">
     <title>Recordatorios</title>
-    <link rel="stylesheet" href="../../assets/css/StyleRec.css">
+    <link rel="stylesheet" href="../../assets/css/StyleRec.css?v=2">
+    <link href="https://fonts.googleapis.com/css2?family=Igia&display=swap" rel="stylesheet">
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css' rel='stylesheet' />
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales-all.min.js'></script>
-    <style> 
-        #calendar {
-            max-width: 900px;
-            margin: 40px auto;
-        }
-    </style>
-</head> 
+</head>
 
-<body>
-
+<body> 
     <div class="container mt-4">
         <h2 class="mb-3 text-center">Recordatorios con Filtros</h2>
 
@@ -69,9 +64,9 @@ if (!empty($_GET)) {
                     <option value="">Prioridad</option>
                     <option value="alta" <?= $prioridad == 'alta' ? 'selected' : '' ?>>Alta</option>
                     <option value="media" <?= $prioridad == 'media' ? 'selected' : '' ?>>Media</option>
-                  <option value="baja" <?= $prioridad == 'baja' ? 'selected' : '' ?>>Baja</option>
-              </select> 
-            </div> 
+                    <option value="baja" <?= $prioridad == 'baja' ? 'selected' : '' ?>>Baja</option>
+                </select>
+            </div>
             <div class="col-md-3">
                 <select name="curso" class="form-control">
                     <option value="">Curso</option>
@@ -104,7 +99,15 @@ if (!empty($_GET)) {
                 },
                 events: <?= json_encode($eventos) ?>,
                 eventClick: function(info) {
-                    alert(info.event.title + "\n" + (info.event.extendedProps.description || "Sin descripción"));
+                    var eventId = info.event.id;
+                    var userAction = confirm(info.event.title + "\n\n" + (info.event.extendedProps.description || "Sin descripción") + "\n\nPresione 'Aceptar' para ir a la tarea.");
+                    if (userAction) {
+                        if (eventId) {
+                            window.location.href = `dashboard.php?id=${eventId}`;
+                        } else {
+                            alert("No se encontró el ID de la tarea.");
+                        }
+                    }
                 }
             });
             calendar.render();
@@ -112,5 +115,6 @@ if (!empty($_GET)) {
     </script>
 
     <?php include('../includes/footer.php'); ?>
-</body> 
-</html> 
+</body>
+
+</html>

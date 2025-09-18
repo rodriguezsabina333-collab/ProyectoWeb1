@@ -17,7 +17,7 @@ body {
     transform: translateX(-50%);
     font-size: 36px;
     font-weight: bold;
-    color: #76b376;
+    color: #4CAF50;
     z-index: 2000;
     margin-top: -13px;
 }
@@ -26,7 +26,7 @@ body {
     background-color: #ffffff;
     padding: 30px 25px;
     border-radius: 12px;
-    box-shadow: 0 4px 16px #76b376;
+    box-shadow: 0 4px 16px #4CAF50;
     width: 100%;
     max-width: 360px;
     text-align: center;
@@ -66,7 +66,7 @@ select.form-control {
 }
 
 .btn-success {
-    background-color: #76b376;
+    background-color: #4CAF50;
     border: none;
     font-size: 16px;
     font-weight: bold;
@@ -80,7 +80,7 @@ select.form-control {
 }
 
 .btn-success:hover {
-    background-color: #5fa15f;
+    background-color: #4CAF50
 }
 
 .login-link {
@@ -88,7 +88,7 @@ select.form-control {
     text-align: center;
     margin-top: 7px;
     font-size: 14px;
-    color: #76b376;
+    color: #4CAF50;
     text-decoration: none;
     font-weight: 500;
 }
@@ -97,4 +97,7 @@ select.form-control {
     text-decoration: underline;
 }
 
+<<<<<<< HEAD:assets/css/StyleR.css
 
+=======
+>>>>>>> cc0d15ec687913e998921ad0bd83861fea384c12:assets/css/StyleReg.css
