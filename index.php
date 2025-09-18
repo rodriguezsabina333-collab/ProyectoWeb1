@@ -25,7 +25,7 @@ if (isset($_GET['registro']) && $_GET['registro'] === 'ok') {
       <h2>Plataforma Homework UVG para apoyar tu aprendizaje.</h2>
     </div>
     <div class="logo">
-      <img src="assets/img/logoU.png" alt="UVG" class="img-fluid">
+      <img src="assets/img/208.png" alt="UVG" class="img-fluid">
     </div>
   </div>
 </div>

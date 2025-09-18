@@ -46,11 +46,11 @@ if (!empty($_GET)) {
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales-all.min.js'></script>
 </head>
 
-<body> 
+<body>
     <div class="container mt-4">
         <h2 class="mb-3 text-center">Recordatorios con Filtros</h2>
 
-        <form method="GET" class="row mb-4">
+        <form method="GET" class="row mb-4" id="formFiltros">
             <div class="col-md-3">
                 <select name="estado" class="form-control">
                     <option value="">Estado</option>
@@ -68,7 +68,7 @@ if (!empty($_GET)) {
                 </select>
             </div>
             <div class="col-md-3">
-                <select name="curso" class="form-control">
+                <select name="curso" class="form-control" id="cursoSelect">
                     <option value="">Curso</option>
                     <option value="Base de Datos" <?= $curso == 'Base de Datos' ? 'selected' : '' ?>>Base de Datos</option>
                     <option value="Filosofía" <?= $curso == 'Filosofía' ? 'selected' : '' ?>>Filosofía</option>
@@ -87,7 +87,11 @@ if (!empty($_GET)) {
         <div id="calendar"></div>
     </div>
 
-    <script>
+    <script> 
+        document.getElementById('cursoSelect').addEventListener('change', function() {
+            document.getElementById('formFiltros').submit();
+        });
+
         document.addEventListener('DOMContentLoaded', function() {
             var calendar = new FullCalendar.Calendar(document.getElementById('calendar'), {
                 initialView: 'dayGridMonth',
@@ -117,4 +121,5 @@ if (!empty($_GET)) {
     <?php include('../includes/footer.php'); ?>
 </body>
 
-</html>
+</html> 
+  

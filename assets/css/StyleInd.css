@@ -10,7 +10,11 @@ body {
     background-color: #4CAF50;
     padding: 60px;
     box-sizing: border-box;
-}
+    border-radius: 15px;
+    width: 80%;
+    margin: 0 auto;
+
+} 
 
 .contenido-bienvenida {
     display: flex;
@@ -47,7 +51,7 @@ body {
     width: 100%;
     background-color: #222;
     color: white;
-    padding: 20px 0;
+    padding: 8px 0;
     text-align: center;
 }
 

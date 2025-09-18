@@ -71,15 +71,14 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
         <div class="acciones-superiores">
             <form action="" method="get">
-                <select name="curso">
+                <select name="curso" onchange="this.form.submit()">
                     <option value="">Buscar por Curso</option>
                     <?php foreach ($cursos as $curso): ?>
                         <option value="<?= htmlspecialchars($curso) ?>" <?= ($curso === $curso_filtro) ? 'selected' : '' ?>>
                             <?= htmlspecialchars($curso) ?>
                         </option>
                     <?php endforeach; ?>
-                </select>
-                <button type="submit">🔍 </button>
+                </select> 
             </form>
         </div>
 
@@ -92,8 +91,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                     <p><strong>Estado:</strong> <?= $tarea['estatus'] ?></p>
                     <p><strong>Curso:</strong> <?= $tarea['curso'] ?></p>
 
-                    <div class="acciones-tarea">
-
+                    <div class="acciones-tarea"> 
                         <button onclick="exportarCSV()">Exportar CSV</button>
                         <button onclick="exportarPDF()">Exportar PDF</button>
                         <a href="nuevaTarea.php?id=<?= $tarea['id'] ?>" class="btn-editar">Editar</a>
@@ -117,9 +115,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({
-                        orden
-                    })
+                    body: JSON.stringify({ orden })
                 });
             }
         });
@@ -134,9 +130,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         }
 
         async function exportarPDF() {
-            const {
-                jsPDF
-            } = window.jspdf;
+            const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             let y = 10;
             document.querySelectorAll('.tarjeta-tarea').forEach(t => {
@@ -167,9 +161,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                     csv += `${titulo},${datos.join(',')}\n`;
                 }
             });
-            const blob = new Blob([csv], {
-                type: 'text/csv;charset=utf-8;'
-            });
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
             link.download = getExportFilename('csv');
@@ -180,4 +172,4 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
 </html>
 
-<?php include(__DIR__ . '/../includes/footer.php'); ?> 
+<?php include(__DIR__ . '/../includes/footer.php'); ?>
