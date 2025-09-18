@@ -64,6 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Perfil de Usuario</title>
   <link rel="stylesheet" href="../../assets/css/StyleP.css" /> 
+  <link rel="stylesheet" href="../../assets/css/StyleConf.css" />
 </head>
 <body>
   <main class="form-container">

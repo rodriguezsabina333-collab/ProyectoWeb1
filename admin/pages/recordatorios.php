@@ -8,7 +8,7 @@ $etiqueta = $_GET['etiqueta'] ?? '';
 $curso = $_GET['curso'] ?? ''; 
  
 $eventos = [];  
-
+ 
 if (!empty($_GET)) { 
     $sql = "SELECT * FROM reentrenosdatos WHERE 1";
     if ($estado) $sql .= " AND estatus = '$estado'";

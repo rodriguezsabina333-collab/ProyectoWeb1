@@ -54,3 +54,7 @@ if (isset($_GET['registro']) && $_GET['registro'] === 'ok') {
         if (alert) alert.remove();
     }, 4000);
 </script>
+
+<?php include('../includes/tema.php'); ?>
+<!DOCTYPE html>
+<html lang="es" data-tema="<?= $temaUsuario ?>">

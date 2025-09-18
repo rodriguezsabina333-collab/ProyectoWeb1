@@ -7,6 +7,12 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+// Manejo de cambio de tema
+if (isset($_GET['tema'])) {
+    $_SESSION['tema'] = ($_GET['tema'] === 'oscuro') ? 'oscuro' : 'claro';
+    header("Location: " . strtok($_SERVER["REQUEST_URI"], '?')); // Limpia el GET
+    exit;
+}
 
 if (!isset($_SESSION['usuario'])) {
     header("Location: " . URL_BASE . "admin/pages/inicioSesion.php");
@@ -22,18 +28,20 @@ $isIndex = $currentFile === 'index.php';
 $navClass = $isIndex ? 'navbar-top' : 'sidebar';
 $layoutClass = $isIndex ? 'layout-top' : 'layout';
 
+// Tema activo
+$tema = isset($_SESSION['tema']) ? $_SESSION['tema'] : 'oscuro';
 ?>
 
 <!DOCTYPE html>
-<html lang="es" data-tema="<?php echo isset($_SESSION['tema']) ? $_SESSION['tema'] : 'claro'; ?>">
+<html lang="es" data-tema="<?php echo $tema; ?>">
 <head> 
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ProyectoWeb1</title>
     <link rel="stylesheet" href="<?php echo URL_BASE ?>/assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="<?php echo URL_BASE ?>/assets/css/StyleH.css">
+    <link rel="stylesheet" href="../../assets/css/StyleConf.css" />
 </head>
 
 <body>
@@ -65,6 +73,18 @@ $layoutClass = $isIndex ? 'layout-top' : 'layout';
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-danger" href="<?php echo URL_BASE ?>admin/pages/cerrar.php">Cerrar Sesión</a>
+                </li>
+                <!-- Botón cambiar tema -->
+                <li class="nav-item">
+                    <?php if ($tema === 'claro'): ?>
+                        <a class="nav-link" href="?tema=oscuro">
+                            <i class="bi bi-moon-fill"></i> Oscuro
+                        </a>
+                    <?php else: ?>
+                        <a class="nav-link" href="?tema=claro">
+                            <i class="bi bi-sun-fill"></i> Claro
+                        </a>
+                    <?php endif; ?>
                 </li>
             </ul>
         </nav>
