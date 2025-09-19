@@ -145,4 +145,9 @@ body, html {
 
 .layout-top .main-content {
   margin-left: 0;
-} 
+}
+
+:root[data-tema="claro"],
+:root[data-tema="oscuro"] {
+  --color-icono-hover: #4CAF50;
+}

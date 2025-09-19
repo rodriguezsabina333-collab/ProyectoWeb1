@@ -1,55 +1,54 @@
 body {
   margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: var(--color-fondo);
-  color: var(--color-texto);
+  padding: 0; 
+  background-color: var(--color-fondo); 
+  color: var(--color-texto); 
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
-  
-.form-container { 
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 30px;
-  max-width: 600px;
-  margin: auto;
+
+.form-container {
+  max-width: 700px;
+  margin: 40px auto;
   background-color: var(--color-fondo-secundario);
-  border-radius: 10px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
-  border: 1px solid var(--color-borde);
+  padding: 30px;
+  border-radius: 12px;  
+  border: 1px solid var(--color-borde); 
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1) ;
+}
+
+.form-container h2 {
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  color: var(--color-texto);
 }
 
 .iconos-top {
   position: absolute;
-  top: 15px;
-  right: 20px;
+  top: 20px;
+  right: 30px;
   display: flex;
   gap: 20px;
-  font-size: 2.5rem;
+  font-size: 2.6rem;
   color: var(--color-texto);
 }
 
 .iconos-top a {
-  color: inherit;
-  text-decoration: none;
+  color: #000 !important;
+  transition: color 0.3s ease;
 }
 
 .iconos-top a:hover {
-  color: var(--color-link-hover);
-} 
-
-h2 {
-  color: var(--color-texto);
-  margin-bottom: 20px;
+  color: #4CAF50 !important;
 }
 
 .perfil-info {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .imagen-circular .foto-perfil {
@@ -62,10 +61,10 @@ h2 {
 }
 
 .texto-opcion {
-  font-weight: bold;
+  font-weight: 600;
   margin-bottom: 10px;
   color: var(--color-texto);
-} 
+}
 
 .opciones-imagen {
   display: flex;
@@ -89,40 +88,50 @@ h2 {
 
 .miniatura:hover {
   transform: scale(1.1);
-  border-color: var(--color-boton);
+  border-color: var(--color-boton); 
+} 
+
+form {
+ width: 100%;
 }
 
 .form-group {
-  width: 100%;
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
-  margin-bottom: 15px;
-  align-items: center;
+} 
+ 
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--color-texto);
 }
 
-.form-group label {
-  margin-bottom: 5px;
-  font-weight: 500;
-  color: var(--color-texto);
-} 
-
 .form-group input {
-  width: 80%;
-  padding: 8px;
-  border-radius: 5px;
-  border: 1px solid var(--color-borde);
+  padding: 12px;
+  border-radius: 8px;
+  border: 2px solid var(--color-borde);
   background-color: var(--color-fondo);
   color: var(--color-texto);
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  font-size: 16px;
+  transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.form-group input:focus {
+  border-color: var(--color-link);
+  outline: none;
 }
 
 .btn-guardar {
   background-color: var(--color-boton);
   color: var(--color-boton-texto);
-  padding: 10px 25px;
+  padding: 14px 30px;
   border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer; 
+  width: 100%;
   transition: background-color 0.3s ease;
 } 
 
@@ -130,14 +139,14 @@ h2 {
   background-color: var(--color-boton-hover);
 }
 
-.mensaje-exito {
-  color: var(--color-boton);
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
+.mensaje-exito,
 .mensaje-error {
-  color: red;
-  font-weight: bold;
-  margin-bottom: 10px;
-} 
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  background-color: var(--color-fondo-secundario);
+  border: 1px solid var(--color-borde);
+  color: var(--color-texto);
+  text-align: center;
+  font-weight: 600;
+}
