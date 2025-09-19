@@ -1,38 +1,127 @@
-#notificaciones-container {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f0fdf4; /* verde muy claro */
+    color: #2e4d2c; /* verde oscuro para texto */
 }
 
-.notificacion-card {
-  background-color: #fff8e1;
-  border-left: 6px solid #ff9800;
-  padding: 15px 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  font-family: 'Segoe UI', sans-serif;
-  max-width: 300px;
+/* Contenedor principal */
+.notificaciones-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 64, 0, 0.1);
+    border-radius: 8px;
 }
 
-.notificacion-card p {
-  margin: 0 0 10px;
-  font-weight: 500;
-  color: #333; 
+/* Título principal */
+.notificaciones-container h1 {
+    font-size: 32px;
+    margin-bottom: 30px;
+    color: #1b5e20;
+    text-align: center;
 }
 
-.notificacion-card button {
-  background-color: #ff9800;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 4px;
-  cursor: pointer;
+/* Secciones */
+.notificaciones-seccion {
+    margin-bottom: 40px;
 }
 
-.notificacion-card button:hover {
-  background-color: #e68900;
+.notificaciones-seccion h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #388e3c;
+    border-bottom: 2px solid #c8e6c9;
+    padding-bottom: 5px;
 }
+
+/* Notificación */
+.notificacion {
+    background-color: #e8f5e9;
+    border-left: 6px solid #66bb6a;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    transition: background 0.3s;
+}
+
+.notificacion:hover {
+    background-color: #dcedc8;
+}
+
+/* Finalizadas */
+.notificacion.finalizada {
+    background-color: #c8e6c9;
+    border-left-color: #43a047;
+}
+
+.notificacion.finalizada:hover {
+    background-color: #a5d6a7;
+}
+
+/* Texto */
+.notificacion h3 {
+    margin: 0 0 10px;
+    font-size: 20px;
+    color: #2e7d32;
+}
+
+.notificacion p {
+    margin: 0 0 8px;
+    font-size: 16px;
+    color: #33691e;
+}
+
+.notificacion small {
+    display: block;
+    font-size: 14px;
+    color: #558b2f;
+}
+
+/* Acciones */
+.acciones {
+    margin-top: 10px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-right: 10px;
+    font-size: 14px;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background 0.3s;
+    color: #fff;
+}
+
+/* Botón eliminar en verde intenso */
+.btn.eliminar {
+    background-color: #388e3c;
+}
+
+.btn.eliminar:hover {
+    background-color: #2e7d32;
+}
+
+/* Mensaje sin notificaciones */
+.sin-notificaciones {
+    font-style: italic;
+    color: #81c784;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .notificaciones-container {
+        margin: 20px;
+        padding: 15px;
+    }
+
+    .btn {
+        display: block;
+        margin: 8px 0;
+    }
+}
+
+  
+
