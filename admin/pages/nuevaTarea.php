@@ -1,5 +1,5 @@
 <?php
-include('../includes/header.php');
+include('../includes/header.php'); 
 include_once(__DIR__ . '/../config/config.php');
 
 $mensaje = '';
@@ -50,68 +50,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
+<head> 
     <meta charset="UTF-8">
     <title>Gestión de Tareas</title>
     <link rel="stylesheet" href="../../assets/css/StylenueT.css">
 </head>
 <body>
+    <h1>Gestión de Tareas</h1>
 
-<h1>Gestión de Tareas</h1>
-
-<?php if ($mensaje): ?>
-    <div class="mensaje-exito"><?php echo $mensaje; ?></div>
-<?php endif; ?>
-
-<form method="POST">
-    <input type="hidden" name="accion" value="<?= $tarea ? 'editar' : 'crear' ?>">
-    <?php if ($tarea): ?>
-        <input type="hidden" name="id" value="<?= $tarea['id'] ?>">
+    <?php if ($mensaje): ?>
+        <div class="mensaje-exito"><?php echo $mensaje; ?></div>
     <?php endif; ?>
 
-    <label>Curso:</label>
-    <select name="curso" required>
-        <option value="">-- Selecciona un curso --</option>
-        <option value="Base de Datos" <?= $tarea && $tarea['curso'] === 'Base de Datos' ? 'selected' : '' ?>>Base de Datos</option>
-        <option value="Filosofía" <?= $tarea && $tarea['curso'] === 'Filosofía' ? 'selected' : '' ?>>Filosofía</option>
-        <option value="Matemáticas" <?= $tarea && $tarea['curso'] === 'Matemáticas' ? 'selected' : '' ?>>Matemáticas</option>
-        <option value="Programación" <?= $tarea && $tarea['curso'] === 'Programación' ? 'selected' : '' ?>>Programación</option>
-    </select>
+    <form method="POST">
+        <input type="hidden" name="accion" value="<?= $tarea ? 'editar' : 'crear' ?>">
+        <?php if ($tarea): ?>
+            <input type="hidden" name="id" value="<?= $tarea['id'] ?>">
+        <?php endif; ?>
 
-    <label>Título:</label>
-    <input type="text" name="titulo" value="<?= $tarea ? htmlspecialchars($tarea['titulo']) : '' ?>" required>
+        <label>Curso:</label> 
+        <select name="curso" required>
+            <option value="">-- Selecciona un curso --</option>
+            <option value="Base de Datos" <?= $tarea && $tarea['curso'] === 'Base de Datos' ? 'selected' : '' ?>>Base de Datos</option>
+            <option value="Filosofía" <?= $tarea && $tarea['curso'] === 'Filosofía' ? 'selected' : '' ?>>Filosofía</option>
+            <option value="Matemáticas" <?= $tarea && $tarea['curso'] === 'Matemáticas' ? 'selected' : '' ?>>Matemáticas</option>
+            <option value="Programación" <?= $tarea && $tarea['curso'] === 'Programación' ? 'selected' : '' ?>>Programación</option>
+        </select>
 
-    <label>Fecha de entrega:</label>
-    <input type="datetime-local" name="fecha" value="<?= $tarea ? date('Y-m-d\TH:i', strtotime($tarea['fecha'])) : '' ?>" required>
+        <label>Título:</label>
+        <input type="text" name="titulo" value="<?= $tarea ? htmlspecialchars($tarea['titulo']) : '' ?>" required>
 
-    <label>Descripción de la tarea:</label>
-    <textarea name="descripcion" rows="4" required><?= $tarea ? htmlspecialchars($tarea['descripcion']) : '' ?></textarea>
+        <label>Fecha de entrega:</label>
+        <input type="datetime-local" name="fecha" value="<?= $tarea ? date('Y-m-d\TH:i', strtotime($tarea['fecha'])) : '' ?>" required>
 
-    <label>Estado:</label>
-    <select name="estatus" required>
-        <option value="pendiente" <?= $tarea && $tarea['estatus'] === 'pendiente' ? 'selected' : '' ?>>Pendiente</option>
-        <option value="en_proceso" <?= $tarea && $tarea['estatus'] === 'en_proceso' ? 'selected' : '' ?>>En proceso</option>
-        <option value="finalizado" <?= $tarea && $tarea['estatus'] === 'finalizado' ? 'selected' : '' ?>>Finalizado</option>
-    </select>
+        <label>Descripción de la tarea:</label>
+        <textarea name="descripcion" rows="4" required><?= $tarea ? htmlspecialchars($tarea['descripcion']) : '' ?></textarea>
 
-    <label>Prioridad:</label>
-    <select name="prioridad" required>
-        <option value="alta" <?= $tarea && $tarea['prioridad'] === 'alta' ? 'selected' : '' ?>>Alta</option>
-        <option value="media" <?= $tarea && $tarea['prioridad'] === 'media' ? 'selected' : '' ?>>Media</option>
-        <option value="baja" <?= $tarea && $tarea['prioridad'] === 'baja' ? 'selected' : '' ?>>Baja</option>
-    </select>
+        <label>Estado:</label>
+        <select name="estatus" required>
+            <option value="pendiente" <?= $tarea && $tarea['estatus'] === 'pendiente' ? 'selected' : '' ?>>Pendiente</option>
+            <option value="en_proceso" <?= $tarea && $tarea['estatus'] === 'en_proceso' ? 'selected' : '' ?>>En proceso</option>
+            <option value="finalizado" <?= $tarea && $tarea['estatus'] === 'finalizado' ? 'selected' : '' ?>>Finalizado</option>
+        </select>
 
-    <label>Etiquetas (separadas por comas):</label>
-    <input type="text" name="etiquetas" value="<?= $tarea ? htmlspecialchars($tarea['etiquetas']) : '' ?>">
+        <label>Prioridad:</label>
+        <select name="prioridad" required>
+            <option value="alta" <?= $tarea && $tarea['prioridad'] === 'alta' ? 'selected' : '' ?>>Alta</option>
+            <option value="media" <?= $tarea && $tarea['prioridad'] === 'media' ? 'selected' : '' ?>>Media</option>
+            <option value="baja" <?= $tarea && $tarea['prioridad'] === 'baja' ? 'selected' : '' ?>>Baja</option>
+        </select>
 
-    <button type="submit"><?= $tarea ? 'Guardar Cambios' : 'Agregar Tarea' ?></button>
-</form>
+        <label>Etiquetas (separadas por comas):</label>
+        <input type="text" name="etiquetas" value="<?= $tarea ? htmlspecialchars($tarea['etiquetas']) : '' ?>">
 
+        <button type="submit"><?= $tarea ? 'Guardar Cambios' : 'Agregar Tarea' ?></button>
+    </form>
 </body>
-</html>
 
-<?php
-include('../includes/footer.php');
-?>
+<?php include('../includes/footer.php'); ?>

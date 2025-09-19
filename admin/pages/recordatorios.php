@@ -33,8 +33,7 @@ if (!empty($_GET)) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="es">
+
 
 <head>
     <meta charset="UTF-8">

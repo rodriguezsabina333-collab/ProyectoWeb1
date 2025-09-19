@@ -57,18 +57,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Perfil de Usuario</title>
-  <link rel="stylesheet" href="../../assets/css/StyleP.css" /> 
-</head>
-<body>
+  <link rel="stylesheet" href="../../assets/css/StyleP.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head> 
+<body>  
   <main class="form-container">
-    <h2>Editar Perfil</h2>
-
+    <div class="iconos-top">
+      <a href="configuracion.php"><i class="fas fa-cog"></i></a>
+      <a href="notificaciones.php"><i class="fas fa-bell"></i></a>
+    </div>
+ 
+    <h2>Editar Perfil</h2> 
+ 
     <?php if (isset($msg)) echo "<p class='mensaje-exito'>$msg</p>"; ?>
     <?php if (isset($error)) echo "<p class='mensaje-error'>$error</p>"; ?>
 
@@ -89,8 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           </label>
         </div>
       </div>
-
-      <!-- Campos del formulario -->
+ 
       <div class="form-group"><label>Usuario</label><input type="text" name="username" value="<?= htmlspecialchars($usuario['username']) ?>" required /></div>
       <div class="form-group"><label>Contraseña</label><input type="password" name="contra" value="<?= htmlspecialchars($usuario['contra']) ?>" required /></div>
       <div class="form-group"><label>Nombre</label><input type="text" name="nombre" value="<?= htmlspecialchars($usuario['nombre']) ?>" required /></div>
@@ -116,5 +120,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     });
   </script>
 </body>
-</html>
-
+</html> 

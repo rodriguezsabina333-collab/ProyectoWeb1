@@ -1,59 +1,76 @@
-.banner {
-    background-color: #76b376; 
-    padding: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    color: white;
-    border-radius: 8px;
+body {
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
-
+  
+.banner {  
+  background-color: #76b376;
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  border-radius: 8px;
+} 
 
 .banner h1 {
-    font-size: 48px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: white;
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: white;
 }
 
 .banner h2 {
-    font-size: 20px;
-    font-weight: normal;
-    margin-bottom: 10px;
-    color: #f0f0f0;
+  font-size: 20px;
+  font-weight: normal;
+  margin-bottom: 10px;
+  color: #f0f0f0;
 }
 
 .banner p {
-    font-size: 14px;
-    color: #e6ffe6;
+  font-size: 14px;
+  color: #e6ffe6;
 }
-
-
+ 
 .info-section {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 50px;
-    text-align: center;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 50px;
+  text-align: center;
+  background-color: var(--color-fondo-secundario);
+  padding: 40px 0;
+  border-top: 1px solid var(--color-borde);
+  border-bottom: 1px solid var(--color-borde);
+  transition: background-color 0.3s ease;
 }
 
 .info-section h3 {
-    font-size: 24px;
-    color: #3d6642;
-    margin-bottom: 10px;
+  font-size: 24px;
+  color: var(--color-texto);
+  margin-bottom: 10px;
 }
 
 .info-section p {
-    font-size: 14px;
-    color: #444;
+  font-size: 14px;
+  color: var(--color-texto);
 }
 
 .btn-primary {
-    background-color: #76b376;
-    border-color: #5ca65c;
-    color: white;
+  background-color: #76b376;
+  border-color: #5ca65c;
+  color: white;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .btn-primary:hover {
-    background-color: #5ca65c;
-    border-color: #4d914d;
-}
+  background-color: #5ca65c;
+  border-color: #4d914d;
+} 
