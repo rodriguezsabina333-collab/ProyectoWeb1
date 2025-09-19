@@ -1,61 +1,63 @@
 body {
-    margin: 0;
-    padding: 0;
-    background-color: white;
-    overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .pantalla-verde {
-    width: 100%;
-    background-color: #4CAF50;
-    padding: 60px;
-    box-sizing: border-box;
-    border-radius: 15px;
-    width: 80%;
-    margin: 0 auto;
-
-} 
+  width: 100%;
+  background-color: #4CAF50;
+  padding: 60px;
+  box-sizing: border-box;
+  border-radius: 15px;
+  width: 80%;
+  margin: 0 auto;
+}
 
 .contenido-bienvenida {
-    display: flex;
-    justify-content: space-between;
-    align-items: center; 
-    max-width: 1400px;
-    margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .texto h1 {
-    font-size: 48px;
-    font-weight: bold;
-    color: white;
-    margin-bottom: 10px;
+  font-size: 48px;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 10px;
 }
 
 .texto h2 {
-    font-size: 20px;
-    font-weight: normal;
-    color: #f0f0f0;
+  font-size: 20px;
+  font-weight: normal;
+  color: #f0f0f0;
 }
 
 .logo img {
-    max-width: 300px;
-    height: auto;
+  max-width: 300px;
+  height: auto;
 }
 
 .seccion-blanca {
-    background-color: white;
-    padding: 60px 0;
+  background-color: var(--color-fondo-secundario);
+  padding: 60px 0;
+  transition: background-color 0.3s ease;
 }
 
 .footer {
-    width: 100%;
-    background-color: #222;
-    color: white;
-    padding: 8px 0;
-    text-align: center;
+  width: 100%;
+  background-color: #222;
+  color: white;
+  padding: 8px 0;
+  text-align: center;
 }
 
 .footer-content {
-    width: 100%;
-    padding: 0 20px;
-}
+  width: 100%;
+  padding: 0 20px;
+} 

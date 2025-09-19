@@ -1,76 +1,69 @@
 body {
-  background-color: var(--color-fondo);
-  color: var(--color-texto);
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  overflow-x: hidden;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
-  
-.banner {  
-  background-color: #76b376;
-  padding: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: white;
-  border-radius: 8px;
-} 
 
-.banner h1 {
-  font-size: 48px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: white;
+.pantalla-verde {
+  width: 100%;
+  background-color: #4CAF50;
+  padding: 60px;
+  box-sizing: border-box;
+  border-radius: 15px;
+  width: 80%;
+  margin: 0 auto;
 }
 
-.banner h2 {
+.contenido-bienvenida {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.texto h1 {
+  font-size: 48px;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.texto h2 {
   font-size: 20px;
   font-weight: normal;
-  margin-bottom: 10px;
   color: #f0f0f0;
 }
 
-.banner p {
-  font-size: 14px;
-  color: #e6ffe6;
+.logo img {
+  max-width: 300px;
+  height: auto;
 }
- 
-.info-section {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 50px;
-  text-align: center;
+
+.seccion-blanca {
   background-color: var(--color-fondo-secundario);
-  padding: 40px 0;
-  border-top: 1px solid var(--color-borde);
-  border-bottom: 1px solid var(--color-borde);
+  padding: 60px 0;
   transition: background-color 0.3s ease;
 }
 
-.info-section h3 {
-  font-size: 24px;
+.seccion-blanca h3,
+.seccion-blanca p {
   color: var(--color-texto);
-  margin-bottom: 10px;
+  transition: color 0.3s ease;
 }
 
-.info-section p {
-  font-size: 14px;
-  color: var(--color-texto);
-}
-
-.btn-primary {
-  background-color: #76b376;
-  border-color: #5ca65c;
+.footer {
+  width: 100%;
+  background-color: #222;
   color: white;
-  font-weight: bold;
-  padding: 10px 20px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  padding: 8px 0;
+  text-align: center;
 }
 
-.btn-primary:hover {
-  background-color: #5ca65c;
-  border-color: #4d914d;
-} 
+.footer-content {
+  width: 100%;
+  padding: 0 20px;
+}
