@@ -1,11 +1,10 @@
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
-    background-color: #f0fdf4; /* verde muy claro */
-    color: #2e4d2c; /* verde oscuro para texto */
+    background-color: #f0fdf4; 
+    color: #2e4d2c;
 }
-
-/* Contenedor principal */
+ 
 .notificaciones-container {
     max-width: 900px;
     margin: 40px auto;
@@ -14,8 +13,7 @@ body {
     box-shadow: 0 0 10px rgba(0, 64, 0, 0.1);
     border-radius: 8px;
 }
-
-/* Título principal */
+ 
 .notificaciones-container h1 {
     font-size: 32px;
     margin-bottom: 30px;
@@ -23,7 +21,7 @@ body {
     text-align: center;
 }
 
-/* Secciones */
+ 
 .notificaciones-seccion {
     margin-bottom: 40px;
 }
@@ -36,7 +34,7 @@ body {
     padding-bottom: 5px;
 }
 
-/* Notificación */
+ 
 .notificacion {
     background-color: #e8f5e9;
     border-left: 6px solid #66bb6a;
@@ -49,8 +47,7 @@ body {
 .notificacion:hover {
     background-color: #dcedc8;
 }
-
-/* Finalizadas */
+  
 .notificacion.finalizada {
     background-color: #c8e6c9;
     border-left-color: #43a047;
@@ -60,7 +57,7 @@ body {
     background-color: #a5d6a7;
 }
 
-/* Texto */
+
 .notificacion h3 {
     margin: 0 0 10px;
     font-size: 20px;
@@ -79,7 +76,7 @@ body {
     color: #558b2f;
 }
 
-/* Acciones */
+
 .acciones {
     margin-top: 10px;
 }
@@ -95,7 +92,7 @@ body {
     color: #fff;
 }
 
-/* Botón eliminar en verde intenso */
+
 .btn.eliminar {
     background-color: #388e3c;
 }
@@ -104,13 +101,12 @@ body {
     background-color: #2e7d32;
 }
 
-/* Mensaje sin notificaciones */
+
 .sin-notificaciones {
     font-style: italic;
     color: #81c784;
-}
-
-/* Responsive */
+} 
+ 
 @media (max-width: 600px) {
     .notificaciones-container {
         margin: 20px;
