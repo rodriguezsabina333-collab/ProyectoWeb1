@@ -11,18 +11,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre = $_POST['nombre'] ?? '';
     $apellido = $_POST['apellido'] ?? '';
     $telefono = $_POST['telefono'] ?? '';
-    $fechadenacimiento = $_POST['fechadenacimiento'] ?? null;
+    $fecha_nacimiento = $_POST['fecha_nacimiento'] ?? null;
 
     if (!empty($username) && !empty($contra)) {
       
-        $query = "INSERT INTO usuario (username, contra, correo, nombre, apellido, telefono, fechadenacimiento) 
+        $query = "INSERT INTO usuario (username, contra, correo, nombre, apellido, telefono, fecha_nacimiento) 
                   VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($query);
 
         if ($stmt === false) {
             $mensaje = "Error en la consulta SQL: " . $conn->error;
         } else {
-            $stmt->bind_param("sssssss", $username, $contra, $correo, $nombre, $apellido, $telefono, $fechadenacimiento);
+            $stmt->bind_param("sssssss", $username, $contra, $correo, $nombre, $apellido, $telefono, $fecha_nacimiento);
 
             if ($stmt->execute()) {
                 session_start();

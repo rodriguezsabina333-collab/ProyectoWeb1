@@ -4,7 +4,7 @@ include('../includes/header.php');
 include_once(__DIR__ . '/../config/config.php');
 
 if (!isset($_SESSION['usuario']) || $_SESSION['usuario'] !== "ok" || !isset($_SESSION['nombreUsuario'])) {
-    header("Location: ../inicioSesion.php");
+    header("Location: inicioSesion.php");
     exit;
 }
 
@@ -120,4 +120,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     });
   </script>
 </body>
-</html> 
+</html>  

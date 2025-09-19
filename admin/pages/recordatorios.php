@@ -46,7 +46,7 @@ if (!empty($_GET)) {
 </head>
 
 <body>
-    <div class="container mt-4">
+    <div class="container mt-4"> 
         <h2 class="mb-3 text-center">Recordatorios con Filtros</h2>
 
         <form method="GET" class="row mb-4" id="formFiltros">

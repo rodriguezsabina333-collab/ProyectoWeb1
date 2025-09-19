@@ -5,8 +5,6 @@ if (!defined('NOMBRE_SITIO')) {
 
 session_start();
 session_destroy();
-header("Location:" . URL_BASE . "index.php");
-
-exit;
-
-?>
+header("Location: inicioSesion.php");
+exit; 
+?> 
