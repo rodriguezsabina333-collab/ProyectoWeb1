@@ -2,6 +2,7 @@
 session_start();
 include('../includes/header.php');
 include_once(__DIR__ . '/../config/config.php');
+include_once(__DIR__ . '/../config/conexion.php');
 
 if (!isset($_SESSION['usuario']) || $_SESSION['usuario'] !== "ok" || !isset($_SESSION['nombreUsuario'])) {
     header("Location: inicioSesion.php");
@@ -55,8 +56,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = "Error al actualizar: " . $stmtUpdate->error;
     }
 }
-?>
 
+// Contador de notificaciones (tareas que vencen hoy)
+$sqlNotif = "SELECT COUNT(*) AS total FROM reentrenosdatos WHERE DATE(fecha) = CURDATE()";
+$resNotif = $conn->query($sqlNotif);
+$totalNotif = 0;
+if ($resNotif && $rowNotif = $resNotif->fetch_assoc()) {
+    $totalNotif = $rowNotif['total'];
+}
+?>
 
 <head>
   <meta charset="UTF-8" />
@@ -66,14 +74,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head> 
 <body>  
+  
+    <h2>Editar Perfil</h2> 
+ 
   <main class="form-container">
     <div class="iconos-top">
       <a href="configuracion.php"><i class="fas fa-cog"></i></a>
-      <a href="notificaciones.php"><i class="fas fa-bell"></i></a>
-    </div>
- 
-    <h2>Editar Perfil</h2> 
- 
+      <a href="notificaciones.php" class="notif-icon">
+        <i class="fas fa-bell"></i>
+        <?php if ($totalNotif > 0): ?>
+          <span class="badge"><?php echo $totalNotif; ?></span>
+        <?php endif; ?>
+      </a>
+     </div>
+  
     <?php if (isset($msg)) echo "<p class='mensaje-exito'>$msg</p>"; ?>
     <?php if (isset($error)) echo "<p class='mensaje-error'>$error</p>"; ?>
 
@@ -109,6 +123,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </form>
   </main>
 
+  <style>
+    .notif-icon {
+      position: relative;
+      display: inline-block;
+    }
+    .notif-icon .badge {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      background: red;
+      color: white;
+      border-radius: 50%;
+      padding: 2px 6px;
+      font-size: 12px;
+    }
+  </style>
+
   <script>
     const radios = document.querySelectorAll('input[name="foto_opcion"]');
     const preview = document.getElementById('fotoPerfilPreview');
@@ -120,4 +151,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     });
   </script>
 </body>
-</html>  
+</html>

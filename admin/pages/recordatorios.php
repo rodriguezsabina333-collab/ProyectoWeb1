@@ -64,7 +64,7 @@ if (!empty($_GET)) {
 </head>
 <body>
 <div class="container mt-4">
-    <h2 class="mb-3 text-center">Recordatorios con Filtros</h2>
+<h2 class="titulo-recordatorios mb-3 text-center">Filtrar Recordatorios</h2>
 
     <form method="GET" class="row mb-4" id="formFiltros">
         <div class="col-md-3">
@@ -85,6 +85,10 @@ if (!empty($_GET)) {
             </select>
         </div>
 
+           <div class="col-md-3">
+            <input type="text" name="etiqueta" class="form-control" placeholder="Etiqueta..." value="<?= htmlspecialchars($etiqueta) ?>">
+        </div>
+
         <div class="col-md-3">
             <select name="curso" class="form-control" id="cursoSelect">
                 <option value="">Curso</option>
@@ -95,10 +99,7 @@ if (!empty($_GET)) {
             </select>
         </div>
 
-        <div class="col-md-3">
-            <input type="text" name="etiqueta" class="form-control" placeholder="Etiqueta..." value="<?= htmlspecialchars($etiqueta) ?>">
-        </div>
-
+     
         <div class="col-md-12 mt-2">
             <button type="submit" class="btn btn-primary w-100">Filtrar</button>
         </div>

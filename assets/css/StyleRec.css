@@ -53,3 +53,11 @@
     display: flex;
     min-height: 100vh;
 }
+
+.titulo-recordatorios {
+  font-weight: bold;
+  color: var(--color-texto);
+  font-size: 35px;
+  margin-bottom: 20px;
+  text-align: center;
+}

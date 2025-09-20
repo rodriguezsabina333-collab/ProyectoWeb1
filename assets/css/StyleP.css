@@ -9,7 +9,7 @@ body {
 
 .form-container {
   max-width: 700px;
-  margin: 40px auto;
+  margin: 10px auto;
   background-color: var(--color-fondo-secundario);
   padding: 30px;
   border-radius: 12px;  
@@ -17,13 +17,13 @@ body {
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1) ;
 }
 
-.form-container h2 {
-  font-size: 30px;
-  font-weight: bold;
-  margin-bottom: 20px;
+h2 {
   text-align: center;
+  font-size: 35px;
+  font-weight: bold;
+  margin-bottom: 20px; 
   color: var(--color-texto);
-}
+} 
 
 .iconos-top {
   position: absolute;
@@ -33,6 +33,18 @@ body {
   gap: 20px;
   font-size: 2.6rem;
   color: var(--color-texto);
+}
+.iconos-top a:hover i {
+  color: #28a745 !important; 
+}
+
+:root[data-tema="claro"] .iconos-top a {
+  color: #000 !important;
+}
+
+
+:root[data-tema="oscuro"] .iconos-top a {
+  color: #ffffff !important;
 }
 
 .iconos-top a {

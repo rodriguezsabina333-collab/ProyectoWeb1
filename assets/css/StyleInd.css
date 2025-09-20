@@ -11,10 +11,11 @@ body {
 .pantalla-verde {
   width: 80%;
   margin: 0 auto;
-  padding: 60px;
+  padding: 40px;
   box-sizing: border-box;
   border-radius: 15px;
   background-color: #4CAF50;
+  margin-top: 60px;
 }
 
 
@@ -28,7 +29,7 @@ body {
 
 
 .texto h1 {
-  font-size: 48px;
+  font-size: 55px;
   font-weight: bold;
   color: white;
   margin-bottom: 10px;
@@ -42,7 +43,7 @@ body {
 }
 
 .texto h3 {
-  font-size: 20px;
+  font-size: 16.5px;
   font-weight: normal;
   color: #f0f0f0;
 }
@@ -72,7 +73,7 @@ body {
   width: 100%;
   background-color: #222;
   color: white;
-  padding: 8px 0;
+  padding: 10px 0;
   text-align: center;
 }
 

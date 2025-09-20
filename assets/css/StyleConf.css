@@ -83,13 +83,15 @@ button:hover,
 }
 
 .config-header {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   text-align: center;
 }
 
 .config-header h1 {
-  font-size: 28px;
+  font-size: 35px;
   font-weight: bold;
+  margin-top: 40px;
+ 
 }
 
 .config-header p {
@@ -121,8 +123,14 @@ body.config-page .sidebar {
 }
 
 body.config-page .config-container {
-  max-width: 500px;
+  max-width: 500px;  
   margin: 40px auto;
   padding: 20px;
 } 
  
+#configuracion {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  margin-top: -30px;
+}

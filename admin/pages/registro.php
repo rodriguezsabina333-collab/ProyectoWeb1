@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <head>
     <meta charset="UTF-8">
-    <title>Homework UVG - Registro</title>
+    <title>Homework UVG - Registro -</title>
     <link rel="stylesheet" href="../../assets/css/StyleReg.css">
 </head>
 

@@ -3,127 +3,86 @@ body {
     font-family: 'Segoe UI', sans-serif;
     background-color: var(--color-fondo);
     color: var(--color-texto);
-    transition: background-color 0.5s ease, color 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-.notificaciones-container {
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 20px;
-    background-color: var(--color-fondo-secundario);
-    box-shadow: 0 0 10px var(--box-shadow-notificacion);
-    border-radius: 8px;
-    transition: background-color 0.5s ease, box-shadow 0.5s ease;
-} 
-
-.notificaciones-container h1 {
-    font-size: 32px;
-    margin-bottom: 30px; 
-    color: var(--color-titulo);
-    text-align: center;
-    transition: color 0.5s ease;
-} 
-
-.notificaciones-seccion {
-    margin-bottom: 40px;
-}
-
-.notificaciones-seccion h2 {
-    font-size: 24px;
+h2 {
+    font-size: 35px;
     margin-bottom: 20px;
-    color: var(--color-subtitulo);
-    border-bottom: 2px solid var(--color-borde);
-    padding-bottom: 5px;
-    transition: color 0.5s ease, border-color 0.5s ease;
-} 
+    text-align: center;
+    font-weight: bold;
+    color: var(--color-titulo);
+}
 
-.notificacion {
-    background-color: var(--color-notificacion-clara);
-    border-left: 6px solid var(--color-borde-notificacion);
+#seccionNotificaciones {
+    width: 100%;
+    max-width: 900px;
+    background-color: var(--color-contenedor);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
+    transition: background-color 0.4s ease;
+}
+
+#seccionNotificaciones h3 {
+    font-size: 22px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    color: var(--color-subtitulo);
+    border-bottom: 1px solid var(--color-borde);
+    padding-bottom: 5px;
+}
+
+.hoy {
+    background-color: var(--color-hoy);
+    border-left: 5px solid #4CAF50;
     padding: 15px 20px;
     margin-bottom: 15px;
-    border-radius: 6px;
-    transition: background-color 0.5s ease, border-left-color 0.5s ease;
-}
-
-.notificacion:hover {
-    background-color: var(--color-notificacion-oscura);
-}
-
-.notificacion.finalizada {
-    background-color: var(--color-notificacion-finalizada-clara);
-    border-left-color: var(--color-borde-notificacion-finalizada);
-}
-
-.notificacion.finalizada:hover {
-    background-color: var(--color-notificacion-finalizada-oscura);
-} 
-
-.notificacion h3 {
-    margin: 0 0 10px;
-    font-size: 20px;
-    color: var(--color-notificacion-titulo);
-    transition: color 0.5s ease;
-}
-
-.notificacion p {
-    margin: 0 0 8px;
-    font-size: 16px;
-    color: var(--color-texto-notificacion);
-    transition: color 0.5s ease;
-}
-
-.notificacion small {
-    display: block;
-    font-size: 14px;
-    color: var(--color-texto-etiqueta);
-    transition: color 0.5s ease;
-} 
-
-.acciones {
-    margin-top: 10px;
-    display: flex;
-    justify-content: flex-end;
-} 
-
-.btn {
-    display: inline-block;
-    padding: 10px 20px;
-    margin-right: 0;
-    font-size: 16px;
-    text-decoration: none;
     border-radius: 8px;
+}
+
+.vencida {
+    background-color: var(--color-vencida);
+    border-left: 5px solid #f44336;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+}
+
+.notif {
+    background-color: var(--color-notif);
+    border-left: 5px solid #4CAF50;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+}
+
+.notif.leida {
+    background-color: var(--color-leida);
+    border-left-color: #999;
+}
+
+.notif.no-leida {
+    border-left-color: #ff9800;
+}
+
+.notif button {
+    background-color: var(--color-btn);
+    color: var(--color-texto);
+    margin-top: 10px;
+    margin-right: 10px;
+    padding: 6px 12px;
+    font-size: 14px;
     border: none;
+    border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    font-weight: bold;
-} 
-
-.btn.eliminar {
-    background-color: #4CAF50;
-    color: #fff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
 }
 
-.btn.eliminar:hover {
-    background-color: #43a047;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-} 
-
-.sin-notificaciones {
-    font-style: italic;
-    color: var(--color-texto-vacio);
-    transition: color 0.5s ease;
+.notif button:hover {
+    background-color: var(--color-btn-hover);
 }
-
-@media (max-width: 600px) {
-    .notificaciones-container {
-        margin: 20px;
-        padding: 15px;
-    } 
-    .btn {
-        display: block;
-        margin: 8px 0;
-    }
-} 
