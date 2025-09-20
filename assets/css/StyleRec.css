@@ -5,7 +5,7 @@
   border: 1px solid var(--color-borde);
   border-radius: 8px;
   padding: 10px;
-} 
+}
 
 .fc-event {
   background-color: var(--color-boton) !important;
@@ -17,7 +17,7 @@
   border-radius: 4px;
   text-align: center;
 }
- 
+
 .fc .fc-event {
   background-color: var(--color-boton) !important;
   border-color: var(--color-boton) !important;
@@ -28,8 +28,8 @@
 .fc .fc-daygrid-day-number {
   font-family: 'Igia', sans-serif;
   font-weight: bold;
-  color: var(--color-texto); 
-} 
+  color: var(--color-texto);
+}
 
 .fc .fc-daygrid-day-frame {
   background-color: var(--color-fondo-secundario);
@@ -41,5 +41,5 @@
   border-color: var(--color-boton) !important;
   color: var(--color-boton-texto) !important;
   font-weight: bold;
-} 
-  
+}
+

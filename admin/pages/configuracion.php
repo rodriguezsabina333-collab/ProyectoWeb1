@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['form_type']) && $_POS
 </head>
 <body>
     <div class="config-header">
-        <h1>Configuración del Sistema</h1>
+        <h1>Configuración del Sistema</h1> 
         <p>Gestiona tus preferencias y ajustes del sistema</p>
     </div>
 
