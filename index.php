@@ -1,6 +1,6 @@
 <?php
 if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+  session_start();
 }
 
 $extra_css = '<link rel="stylesheet" href="/ProyectoWeb1/assets/css/StyleInd.css">';
@@ -8,7 +8,7 @@ $extra_css = '<link rel="stylesheet" href="/ProyectoWeb1/assets/css/StyleInd.css
 include(__DIR__ . '/admin/includes/header.php');
 
 if (isset($_GET['registro']) && $_GET['registro'] === 'ok') {
-    echo '<div class="alert alert-success text-center" style="margin-top: 20px;">
+  echo '<div class="alert alert-success text-center" style="margin-top: 20px;">
              ¡Registro exitoso! Te damos la bienvenida a Homework UVG, ' . htmlspecialchars($_SESSION['nombreUsuario']) . '
           </div>';
 }
@@ -21,11 +21,12 @@ if (isset($_GET['registro']) && $_GET['registro'] === 'ok') {
 <div class="pantalla-verde">
   <div class="contenido-bienvenida">
     <div class="texto">
-      <h1>FACULTAD DE INGENIERÍA</h1>
-      <h2>Plataforma Homework UVG para apoyar tu aprendizaje.</h2>
+       <h1>HOMEWORK UVG</h1>
+       <h2>FACULTAD DE INGENIERÍA</h2>
+      <h3>Plataforma Homework UVG para apoyar tu aprendizaje</h3>
     </div>
     <div class="logo">
-      <img src="assets/img/LogoN.png" alt="UVG" class="img-fluid">
+      <img src="assets/img/negrUVG.png" alt="UVG" class="img-fluid">
     </div>
   </div>
 </div>
@@ -34,16 +35,13 @@ if (isset($_GET['registro']) && $_GET['registro'] === 'ok') {
   <div class="container my-5">
     <div class="row text-center">
       <div class="col-md-4">
-        <h3>Cursos</h3>
-        <p>Accede a material, guías y tareas de tus cursos.</p>
+        <h4>🗓️ Recordatorios</h4>
+        <p>Activa alertas visuales para tus tareas y eventos importantes. Mantén tu calendario al día.</p>
       </div>
+
       <div class="col-md-4">
-        <h3>Tareas</h3>
-        <p>Organiza y gestiona tus tareas de forma más sencilla.</p>
-      </div>
-      <div class="col-md-4">
-        <h3>Recursos</h3>
-        <p>Encuentra herramientas y recursos para tus estudios.</p>
+        <h4>📚 Recursos</h4>
+        <p>Accede a herramientas que te ayudan a organizar tu tiempo y visualizar tus pendientes.</p>
       </div>
     </div>
   </div>
@@ -57,12 +55,11 @@ if (isset($_GET['registro']) && $_GET['registro'] === 'ok') {
 </footer>
 
 <script>
-    setTimeout(() => {
-        const alert = document.querySelector('.alert-success');
-        if (alert) alert.remove();
-    }, 4000);
-</script> 
+  setTimeout(() => {
+    const alert = document.querySelector('.alert-success');
+    if (alert) alert.remove();
+  }, 4000);
+</script>
 </body>
-</html>
 
-
+</html> 

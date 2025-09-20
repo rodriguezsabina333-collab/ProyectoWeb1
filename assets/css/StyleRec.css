@@ -43,3 +43,13 @@
   font-weight: bold;
 }
 
+.main-content {
+    margin-left: 170px;
+    padding: 20px;
+    width: 100%;
+}
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}

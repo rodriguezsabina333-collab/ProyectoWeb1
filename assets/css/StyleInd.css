@@ -7,15 +7,16 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+
 .pantalla-verde {
-  width: 100%;
-  background-color: #4CAF50;
+  width: 80%;
+  margin: 0 auto;
   padding: 60px;
   box-sizing: border-box;
   border-radius: 15px;
-  width: 80%;
-  margin: 0 auto;
+  background-color: #4CAF50;
 }
+
 
 .contenido-bienvenida {
   display: flex;
@@ -25,6 +26,7 @@ body {
   margin: 0 auto;
 }
 
+
 .texto h1 {
   font-size: 48px;
   font-weight: bold;
@@ -33,21 +35,38 @@ body {
 }
 
 .texto h2 {
+  font-size: 28px;
+  font-weight: normal;
+  color: #f0f0f0;
+  margin-bottom: 10px;
+}
+
+.texto h3 {
   font-size: 20px;
   font-weight: normal;
   color: #f0f0f0;
 }
 
+
 .logo img {
-  max-width: 300px;
+  max-width: 450px;
   height: auto;
 }
+
+
 
 .seccion-blanca {
   background-color: var(--color-fondo-secundario);
   padding: 60px 0;
   transition: background-color 0.3s ease;
 }
+
+
+.seccion-blanca h4 {
+  text-align: center;
+  font-weight: bold;
+}
+
 
 .footer {
   width: 100%;
@@ -60,4 +79,16 @@ body {
 .footer-content {
   width: 100%;
   padding: 0 20px;
-} 
+}
+
+.seccion-blanca .row {
+  display: flex;
+  justify-content: center; 
+  gap: 40px; 
+  flex-wrap: wrap; 
+}
+
+.seccion-blanca .col-md-4 {
+  text-align: center; 
+  max-width: 400px; 
+}
